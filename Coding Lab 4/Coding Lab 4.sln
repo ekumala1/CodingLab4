@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coding_Lab_4", "Coding Lab 4\Coding_Lab_4\Coding_Lab_4.csproj", "{8E11EA50-96FB-413B-B442-2087F73B0514}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "Coding_Lab_4Content", "Coding Lab 4\Coding_Lab_4Content\Coding_Lab_4Content.contentproj", "{B184DB76-9217-4D53-8AF7-942C6125AE28}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E11EA50-96FB-413B-B442-2087F73B0514}.Debug|x86.ActiveCfg = Debug|x86
+		{8E11EA50-96FB-413B-B442-2087F73B0514}.Debug|x86.Build.0 = Debug|x86
+		{8E11EA50-96FB-413B-B442-2087F73B0514}.Release|x86.ActiveCfg = Release|x86
+		{8E11EA50-96FB-413B-B442-2087F73B0514}.Release|x86.Build.0 = Release|x86
+		{B184DB76-9217-4D53-8AF7-942C6125AE28}.Debug|x86.ActiveCfg = Debug|x86
+		{B184DB76-9217-4D53-8AF7-942C6125AE28}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
