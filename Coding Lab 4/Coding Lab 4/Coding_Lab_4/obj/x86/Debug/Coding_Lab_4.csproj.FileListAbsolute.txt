@@ -58,3 +58,23 @@ C:\Users\Daneolog\Downloads\Coding Lab 4\Coding Lab 4\Coding_Lab_4\obj\x86\Debug
 C:\Users\Daneolog\Downloads\Coding Lab 4\Coding Lab 4\Coding_Lab_4\obj\x86\Debug\Coding_Lab_4.exe
 C:\Users\Daneolog\Downloads\Coding Lab 4\Coding Lab 4\Coding_Lab_4\obj\x86\Debug\Coding_Lab_4.pdb
 C:\Users\Daneolog\Documents\Visual Studio 2015\Projects\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\Courier New.xnb
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\left_paddle.xnb
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\right_paddle.xnb
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\small_ball.xnb
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\Courier New.xnb
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Coding_Lab_4.exe
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Coding_Lab_4.pdb
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Microsoft.Xna.Framework.dll
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Microsoft.Xna.Framework.Game.dll
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.dll
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.dll
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.dll
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Microsoft.Xna.Framework.xml
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Microsoft.Xna.Framework.Game.xml
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.xml
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.xml
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.xml
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\obj\x86\Debug\Coding_Lab_4.csprojResolveAssemblyReference.cache
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\obj\x86\Debug\Coding_Lab_4.exe
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\obj\x86\Debug\Coding_Lab_4.pdb

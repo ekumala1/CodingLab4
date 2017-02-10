@@ -1,3 +1,4 @@
 c:\users\daneolog\documents\visual studio 2015\Projects\Coding Lab 4\Coding Lab 4\Coding_Lab_4Content\obj\x86\Debug\Coding_Lab_4Content.contentprojResolveAssemblyReference.cache
 C:\Users\Inworks-User\Downloads\Coding Lab 4\Coding Lab 4\Coding_Lab_4Content\obj\x86\Debug\Coding_Lab_4Content.contentprojResolveAssemblyReference.cache
 C:\Users\Daneolog\Downloads\Coding Lab 4\Coding Lab 4\Coding_Lab_4Content\obj\x86\Debug\Coding_Lab_4Content.contentprojResolveAssemblyReference.cache
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4Content\obj\x86\Debug\Coding_Lab_4Content.contentprojResolveAssemblyReference.cache

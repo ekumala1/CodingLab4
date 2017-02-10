@@ -19,17 +19,20 @@ namespace Coding_Lab_4
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont spriteFont;
+        Vector2 window;
         Vector2 leftPaddle, ball, rightPaddle;
         Vector2 ballVelocity;
         string goalText;
         bool goalState;
         int leftScore, rightScore;
+        float speed = 3;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 600;
+            graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
+            window = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
 
             Content.RootDirectory = "Content";
         }
@@ -58,8 +61,8 @@ namespace Coding_Lab_4
             spriteFont = Content.Load<SpriteFont>("Courier New");
             leftPaddle = new Vector2(0f, 50f);
             ball = new Vector2(300f, 300f);
-            rightPaddle = new Vector2(576f, 536f);
-            ballVelocity = new Vector2(1f, 1f);
+            rightPaddle = new Vector2(window.X - 24, 536f);
+            ballVelocity = new Vector2(speed, speed);
             goalText = "";
 
             // TODO: use this.Content to load your game content here
@@ -97,18 +100,18 @@ namespace Coding_Lab_4
             else
             {
                 #region ball stuff
-                if (ball.X >= 544 && ball.Y >= rightPaddle.Y && ball.Y <= rightPaddle.Y + 64)
+                if (ball.X >= window.X - 56 && ball.Y + 32 >= rightPaddle.Y && ball.Y <= rightPaddle.Y + 64)
                 {
                     ballVelocity.X *= -1;
-                    ballVelocity.Y = (ball.Y - rightPaddle.Y) / 32 * 1;
+                    ballVelocity.Y = (ball.Y - (rightPaddle.Y - 32) - 48) / 48 * speed;
                 }
                 else if (ball.X <= 24 && ball.Y >= leftPaddle.Y && ball.Y <= leftPaddle.Y + 64)
                 {
                     ballVelocity.X *= -1;
-                    ballVelocity.Y = (ball.Y - leftPaddle.Y) / 32 * 1;
+                    ballVelocity.Y = (ball.Y - (leftPaddle.Y - 32) - 48) / 48 * speed;
                 }
 
-                if (ball.Y <= 0 || ball.Y >= 568) ballVelocity.Y *= -1;
+                if (ball.Y <= 0 || ball.Y >= window.Y - 32) ballVelocity.Y *= -1;
 
                 if (ball.X <= -32)
                 {
@@ -118,7 +121,7 @@ namespace Coding_Lab_4
                     rightScore += 1;
                     
                 }
-                else if (ball.X >= 600)
+                else if (ball.X >= window.X)
                 {
                     ball = new Vector2(300f, 300f);
                     goalState = true;
@@ -130,8 +133,8 @@ namespace Coding_Lab_4
                 #endregion
 
                 #region ai paddle stuff
-                if (ball.Y > leftPaddle.Y) leftPaddle.Y += 1;
-                else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= 1;
+                if (ball.Y > leftPaddle.Y) leftPaddle.Y += speed;
+                else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= speed;
                 #endregion
 
                 #region player paddle stuff

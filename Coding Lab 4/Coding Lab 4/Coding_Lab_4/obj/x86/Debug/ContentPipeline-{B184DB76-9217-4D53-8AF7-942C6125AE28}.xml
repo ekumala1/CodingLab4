@@ -7,7 +7,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\Visual Studio 2015\Projects\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\left_paddle.xnb</Output>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\left_paddle.xnb</Output>
       <Time>2017-02-08T20:10:08.8047636-07:00</Time>
     </Item>
     <Item>
@@ -16,7 +16,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\Visual Studio 2015\Projects\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\right_paddle.xnb</Output>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\right_paddle.xnb</Output>
       <Time>2017-02-08T20:10:08.8207647-07:00</Time>
     </Item>
     <Item>
@@ -25,7 +25,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\Visual Studio 2015\Projects\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\small_ball.xnb</Output>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\small_ball.xnb</Output>
       <Time>2017-02-08T20:10:09.3660396-07:00</Time>
     </Item>
     <Item>
@@ -34,7 +34,7 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\Visual Studio 2015\Projects\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\Courier New.xnb</Output>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\Courier New.xnb</Output>
       <Time>2017-02-08T20:10:08.8407652-07:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
@@ -44,10 +44,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Daneolog\Documents\Visual Studio 2015\Projects\Coding Lab 4\Coding Lab 4\Coding_Lab_4Content\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Daneolog\Documents\Visual Studio 2015\Projects\Coding Lab 4\Coding Lab 4\Coding_Lab_4\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Daneolog\Documents\Visual Studio 2015\Projects\Coding Lab 4\Coding Lab 4\Coding_Lab_4\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Daneolog\Documents\Visual Studio 2015\Projects\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4Content\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
