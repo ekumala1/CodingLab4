@@ -8,7 +8,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\left_paddle.xnb</Output>
-      <Time>2017-02-08T20:10:08.8047636-07:00</Time>
+      <Time>2017-02-13T10:54:58.2727334-07:00</Time>
     </Item>
     <Item>
       <Source>right_paddle.bmp</Source>
@@ -17,7 +17,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\right_paddle.xnb</Output>
-      <Time>2017-02-08T20:10:08.8207647-07:00</Time>
+      <Time>2017-02-13T10:54:58.3077547-07:00</Time>
     </Item>
     <Item>
       <Source>small_ball.bmp</Source>
@@ -26,7 +26,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\small_ball.xnb</Output>
-      <Time>2017-02-08T20:10:09.3660396-07:00</Time>
+      <Time>2017-02-13T10:54:58.3927656-07:00</Time>
     </Item>
     <Item>
       <Source>Courier New.spritefont</Source>
@@ -35,7 +35,7 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\Courier New.xnb</Output>
-      <Time>2017-02-08T20:10:08.8407652-07:00</Time>
+      <Time>2017-02-13T10:54:58.3567647-07:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
