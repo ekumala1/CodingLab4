@@ -98,3 +98,12 @@ C:\Users\Inworks-User\Downloads\CodingLab4-master\CodingLab4-master\Coding Lab 4
 C:\Users\Inworks-User\Downloads\CodingLab4-master\CodingLab4-master\Coding Lab 4\Coding Lab 4\Coding_Lab_4\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Inworks-User\Downloads\CodingLab4-master\CodingLab4-master\Coding Lab 4\Coding Lab 4\Coding_Lab_4\obj\x86\Debug\Coding_Lab_4.exe
 C:\Users\Inworks-User\Downloads\CodingLab4-master\CodingLab4-master\Coding Lab 4\Coding Lab 4\Coding_Lab_4\obj\x86\Debug\Coding_Lab_4.pdb
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Microsoft.Xna.Framework.Net.dll
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Microsoft.Xna.Framework.Storage.dll
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Microsoft.Xna.Framework.Xact.dll
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Microsoft.Xna.Framework.Net.xml
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Microsoft.Xna.Framework.Storage.xml
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Microsoft.Xna.Framework.Xact.xml
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\brick.xnb
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\hit.xnb
+C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\dot.xnb

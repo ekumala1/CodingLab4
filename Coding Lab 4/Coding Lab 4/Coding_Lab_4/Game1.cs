@@ -19,18 +19,19 @@ namespace Coding_Lab_4
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont spriteFont;
-        Vector2 window;
         Vector2 leftPaddle, ball, rightPaddle;
         Vector2 ballVelocity;
         Vector2 goalArea;
-        bool[] brokenLeft;
-        bool[] brokenRight;
+        int[] leftHealth;
+        int[] rightHealth;
         string goalText;
         bool goalState;
-        int leftScore, rightScore;
+        double leftScore, rightScore;
         int brickWidth = 50;
+        int brickHeight;
 
         // gameplay mechanics
+        Vector2 window = new Vector2(800, 600);
         float speed = 3;
         int numBricks = 5;
 
@@ -58,12 +59,21 @@ namespace Coding_Lab_4
             spriteBatch.Draw(fillTexture, fillCoor, fill);
         }
 
+        public void drawLine(int x, int y, int width, int height, Color color)
+        {
+            if (width >= height)
+                for (int i = x; i < x + width; i++)
+                    spriteBatch.Draw(Content.Load<Texture2D>("dot"), new Vector2(i, y + (i - x) * height / width), Color.White);
+            else
+                for (int i = y; i < y + height; i++)
+                    spriteBatch.Draw(Content.Load<Texture2D>("dot"), new Vector2(x + (i - y) * width / height, i), Color.White);
+        }
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 600;
-            graphics.PreferredBackBufferHeight = 600;
-            window = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            graphics.PreferredBackBufferWidth = (int)window.X;
+            graphics.PreferredBackBufferHeight = (int)window.Y;
             goalArea.Y = 100;
 
             Content.RootDirectory = "Content";
@@ -89,21 +99,23 @@ namespace Coding_Lab_4
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            brokenLeft = new bool[numBricks];
-            brokenRight = new bool[numBricks];
-
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            leftHealth = new int[numBricks];
+            rightHealth = new int[numBricks];
+
             spriteFont = Content.Load<SpriteFont>("Courier New");
             leftPaddle = new Vector2(brickWidth + 10, 50f);
             ball = new Vector2(300f, 300f);
             rightPaddle = new Vector2(window.X - 24 - (brickWidth + 10), 536f);
             ballVelocity = new Vector2(speed, speed);
             goalText = "";
+            brickHeight = (int)(window.Y / numBricks);
 
             for (int i=0; i<numBricks; i++)
             {
-                brokenLeft[i] = false;
-                brokenRight[i] = false;
+                leftHealth[i] = 2;
+                rightHealth[i] = 2;
             }
 
             // TODO: use this.Content to load your game content here
@@ -136,6 +148,12 @@ namespace Coding_Lab_4
                 {
                     goalState = false;
                     goalText = "";
+
+                    for (int i = 0; i < numBricks; i++)
+                    {
+                        leftHealth[i] = 2;
+                        rightHealth[i] = 2;
+                    }
                 }
             }
             else
@@ -143,9 +161,15 @@ namespace Coding_Lab_4
                 #region ball stuff
                 // collisions with paddle
                 if (ball.X + 32 >= rightPaddle.X && ball.Y + 32 >= rightPaddle.Y && ball.Y <= rightPaddle.Y + 64)
+                {
                     ballVelocity = new Vector2(-speed, (ball.Y - (rightPaddle.Y - 32) - 48) / 48 * speed);
+                    Content.Load<SoundEffect>("hit").Play();
+                }
                 else if (ball.X <= leftPaddle.X + 24 && ball.Y + 32 >= leftPaddle.Y && ball.Y <= leftPaddle.Y + 64)
+                {
                     ballVelocity = new Vector2(speed, (ball.Y - (leftPaddle.Y - 32) - 48) / 48 * speed);
+                    Content.Load<SoundEffect>("hit").Play();
+                }
 
                 // collisions with top and bottom walls
                 if (ball.Y <= 0 || ball.Y >= window.Y - 32) ballVelocity.Y *= -1;
@@ -171,7 +195,22 @@ namespace Coding_Lab_4
                 }
 
                 // collisions with bricks
+                if (ball.X <= brickWidth && leftHealth[(int)(ball.Y / brickHeight)] != 0)
+                {
+                    if (leftHealth[(int)(ball.Y / brickHeight)] == 1) rightScore += 1.0 / numBricks;
 
+                    leftHealth[(int)(ball.Y / brickHeight)]--;
+                    ballVelocity.X *= -1;
+                    Content.Load<SoundEffect>("brick").Play();
+                }
+                else if (ball.X + 32 >= window.X - brickWidth && rightHealth[(int)(ball.Y / brickHeight)] != 0)
+                {
+                    if (rightHealth[(int)(ball.Y / brickHeight)] == 1) leftScore += 1.0 / numBricks;
+
+                    rightHealth[(int)(ball.Y / brickHeight)]--;
+                    ballVelocity.X *= -1;
+                    Content.Load<SoundEffect>("brick").Play();
+                }
 
                 ball += ballVelocity;
                 #endregion
@@ -208,15 +247,30 @@ namespace Coding_Lab_4
 
             for (int i=0; i<numBricks; i++)
             {
-                int height = (int)(window.Y / numBricks);
-                int y = i * height;
+                int x = (int)window.X - brickWidth;
+                int y = i * brickHeight;
 
-                if (brokenLeft[i]) drawRectangle(0, y, brickWidth, height, Color.Red, Color.Black);
-                if (brokenRight[i]) drawRectangle((int)window.X - brickWidth, y, brickWidth, height, Color.Red, Color.Black);
+                if (leftHealth[i] > 0) drawRectangle(0, y, brickWidth, brickHeight, Color.Red, Color.Black);
+                if (leftHealth[i] == 1)
+                {
+                    drawLine(0, y + 50, 20, 5, Color.Black);
+                    drawLine(20, y + 55, 5, -10, Color.Black);
+                    drawLine(25, y + 45, 10, -5, Color.Black);
+                    drawLine(35, y + 40, 15, 10, Color.Black);
+                }
+
+                if (rightHealth[i] > 0) drawRectangle(x, y, brickWidth, brickHeight, Color.Red, Color.Black);
+                if (rightHealth[i] == 1)
+                {
+                    drawLine(x, y + 50, 20, 5, Color.Black);
+                    drawLine(x + 20, y + 55, 5, -10, Color.Black);
+                    drawLine(x + 25, y + 45, 10, -5, Color.Black);
+                    drawLine(x + 35, y + 40, 15, 10, Color.Black);
+                }
             }
 
             spriteBatch.DrawString(spriteFont, "Computer: " + leftScore, Vector2.Zero, Color.Yellow);
-            spriteBatch.DrawString(spriteFont, "You: " + rightScore, new Vector2(window.X - 70, 0), Color.Yellow);
+            spriteBatch.DrawString(spriteFont, "You: " + rightScore, new Vector2(window.X - 90, 0), Color.Yellow);
             spriteBatch.End();
 
             base.Draw(gameTime);

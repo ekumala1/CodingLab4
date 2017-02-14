@@ -37,6 +37,33 @@
       <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\Courier New.xnb</Output>
       <Time>2017-02-13T10:54:58.3567647-07:00</Time>
     </Item>
+    <Item>
+      <Source>brick.wav</Source>
+      <Name>brick</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\brick.xnb</Output>
+      <Time>2017-02-13T16:47:08.0126342-07:00</Time>
+    </Item>
+    <Item>
+      <Source>hit.wav</Source>
+      <Name>hit</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\hit.xnb</Output>
+      <Time>2017-02-13T16:47:08.0171397-07:00</Time>
+    </Item>
+    <Item>
+      <Source>dot.bmp</Source>
+      <Name>dot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\dot.xnb</Output>
+      <Time>2017-02-13T16:50:17.619358-07:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{B184DB76-9217-4D53-8AF7-942C6125AE28}</ContentProjectGUID>
