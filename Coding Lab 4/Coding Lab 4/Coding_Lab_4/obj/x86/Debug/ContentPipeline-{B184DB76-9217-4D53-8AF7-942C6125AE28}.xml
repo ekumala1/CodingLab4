@@ -64,6 +64,33 @@
       <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\dot.xnb</Output>
       <Time>2017-02-13T16:50:17.619358-07:00</Time>
     </Item>
+    <Item>
+      <Source>freeze.bmp</Source>
+      <Name>freeze</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\freeze.xnb</Output>
+      <Time>2017-02-14T18:29:46.7301722-07:00</Time>
+    </Item>
+    <Item>
+      <Source>speed.bmp</Source>
+      <Name>speed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\speed.xnb</Output>
+      <Time>2017-02-14T18:29:46.7301722-07:00</Time>
+    </Item>
+    <Item>
+      <Source>slime.bmp</Source>
+      <Name>slime</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\slime.xnb</Output>
+      <Time>2017-02-17T11:55:28.9554581-07:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{B184DB76-9217-4D53-8AF7-942C6125AE28}</ContentProjectGUID>
