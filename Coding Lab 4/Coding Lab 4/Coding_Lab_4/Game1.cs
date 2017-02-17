@@ -32,8 +32,9 @@ namespace Coding_Lab_4
 
         // gameplay mechanics
         Vector2 window = new Vector2(800, 600);
-        float speed = 3;
+        float speed = 6;
         int numBricks = 5;
+        float AIPaddle = 5;
 
         public void drawRectangle(int x, int y, int width, int height, Color fill, Color outline)
         {
@@ -216,8 +217,8 @@ namespace Coding_Lab_4
                 #endregion
 
                 #region ai paddle stuff
-                if (ball.Y > leftPaddle.Y) leftPaddle.Y += speed - 1;
-                else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= speed - 1;
+                if (ball.Y > leftPaddle.Y) leftPaddle.Y += AIPaddle - 1;
+                else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= AIPaddle - 1;
                 #endregion
 
                 #region player paddle stuff
