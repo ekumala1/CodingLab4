@@ -76,8 +76,8 @@ namespace Coding_Lab_4
         {
             Vector2 center1, center2;
 
-            center1 = coordinates1 + new Vector2(32f, 32f);
-            center2 = coordinates2 + new Vector2(32f, 32f);
+            center1 = coordinates1 + new Vector2(radius, radius);
+            center2 = coordinates2 + new Vector2(radius, radius);
 
             if (Math.Sqrt(Math.Pow(center2.X - center1.X, 2) + Math.Pow(center2.Y - center1.Y, 2)) <= 64)
                 return true;
@@ -228,12 +228,18 @@ namespace Coding_Lab_4
                     Content.Load<SoundEffect>("brick").Play();
                 }
 
+                // collision with powerups
+                if (collide(ball, powerupPosition, 32)) powerupPosition = window; // move it off-screen
+
                 ball += ballVelocity;
                 #endregion
 
                 #region ai paddle stuff
-                if (ball.Y > leftPaddle.Y) leftPaddle.Y += speed - 1;
-                else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= speed - 1;
+                if (ball.X <= 100)
+                {
+                    if (ball.Y > leftPaddle.Y) leftPaddle.Y += 10;
+                    else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= 10;
+                }
                 #endregion
 
                 #region player paddle stuff
