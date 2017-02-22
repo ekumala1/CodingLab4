@@ -38,15 +38,10 @@ namespace Coding_Lab_4
         int brickWidth = 50;
         int brickHeight;
 
-<<<<<<< HEAD
+
         // gameplay mechanics
-        Vector2 window = new Vector2(800, 600);
-        float speed = 6;
-        int numBricks = 5;
         float AIPaddle = 5;
 
-=======
->>>>>>> fa26e5da7c8ac1a39157321785ee6fdc557e2a55
         public void drawRectangle(int x, int y, int width, int height, Color fill, Color outline)
         {
             // credit to Stack Overflow post
