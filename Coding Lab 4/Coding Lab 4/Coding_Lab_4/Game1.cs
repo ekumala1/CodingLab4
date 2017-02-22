@@ -38,6 +38,10 @@ namespace Coding_Lab_4
         int brickWidth = 50;
         int brickHeight;
 
+
+        // gameplay mechanics
+        float AIPaddle = 5;
+
         public void drawRectangle(int x, int y, int width, int height, Color fill, Color outline)
         {
             // credit to Stack Overflow post
@@ -235,11 +239,16 @@ namespace Coding_Lab_4
                 #endregion
 
                 #region ai paddle stuff
+<<<<<<< HEAD
                 if (ball.X <= 100)
                 {
                     if (ball.Y > leftPaddle.Y) leftPaddle.Y += 10;
                     else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= 10;
                 }
+=======
+                if (ball.Y > leftPaddle.Y) leftPaddle.Y += AIPaddle - 1;
+                else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= AIPaddle - 1;
+>>>>>>> origin/master
                 #endregion
 
                 #region player paddle stuff
