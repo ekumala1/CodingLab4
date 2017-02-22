@@ -5,3 +5,6 @@ Content\Courier New.xnb
 Content\brick.xnb
 Content\hit.xnb
 Content\dot.xnb
+Content\freeze.xnb
+Content\speed.xnb
+Content\slime.xnb

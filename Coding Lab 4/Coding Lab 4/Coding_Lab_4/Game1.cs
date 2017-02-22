@@ -16,26 +16,37 @@ namespace Coding_Lab_4
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        // gameplay mechanics
+        Vector2 window = new Vector2(800, 600);
+        float speed = 3;
+        int numBricks = 5;
+        int timer = 0;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont spriteFont;
         Vector2 leftPaddle, ball, rightPaddle;
         Vector2 ballVelocity;
         Vector2 goalArea;
+        int powerupType = 0;
+        Vector2 powerupPosition = new Vector2(0, 0);
         int[] leftHealth;
         int[] rightHealth;
         string goalText;
-        bool goalState;
+        bool goalState, menuState = false;
         double leftScore, rightScore;
         int brickWidth = 50;
         int brickHeight;
 
+<<<<<<< HEAD
         // gameplay mechanics
         Vector2 window = new Vector2(800, 600);
         float speed = 6;
         int numBricks = 5;
         float AIPaddle = 5;
 
+=======
+>>>>>>> fa26e5da7c8ac1a39157321785ee6fdc557e2a55
         public void drawRectangle(int x, int y, int width, int height, Color fill, Color outline)
         {
             // credit to Stack Overflow post
@@ -68,6 +79,19 @@ namespace Coding_Lab_4
             else
                 for (int i = y; i < y + height; i++)
                     spriteBatch.Draw(Content.Load<Texture2D>("dot"), new Vector2(x + (i - y) * width / height, i), Color.White);
+        }
+
+        public bool collide(Vector2 coordinates1, Vector2 coordinates2, int radius)
+        {
+            Vector2 center1, center2;
+
+            center1 = coordinates1 + new Vector2(32f, 32f);
+            center2 = coordinates2 + new Vector2(32f, 32f);
+
+            if (Math.Sqrt(Math.Pow(center2.X - center1.X, 2) + Math.Pow(center2.Y - center1.Y, 2)) <= 64)
+                return true;
+
+            return false;
         }
 
         public Game1()
@@ -107,7 +131,7 @@ namespace Coding_Lab_4
 
             spriteFont = Content.Load<SpriteFont>("Courier New");
             leftPaddle = new Vector2(brickWidth + 10, 50f);
-            ball = new Vector2(300f, 300f);
+            ball = new Vector2(window.X / 2, window.Y / 2);
             rightPaddle = new Vector2(window.X - 24 - (brickWidth + 10), 536f);
             ballVelocity = new Vector2(speed, speed);
             goalText = "";
@@ -157,7 +181,7 @@ namespace Coding_Lab_4
                     }
                 }
             }
-            else
+            else if (!menuState)
             {
                 #region ball stuff
                 // collisions with paddle
@@ -178,7 +202,7 @@ namespace Coding_Lab_4
                 // goals
                 if (ball.X <= -32)
                 {
-                    ball = new Vector2(300f, 300f);
+                    ball = new Vector2(window.X / 2, window.Y / 2);
                     ballVelocity = new Vector2(speed, new Random().Next((int)-speed, (int)speed));
                     goalState = true;
                     goalText = "GOAL!  You have gained one point!\nClick to continue!";
@@ -224,13 +248,22 @@ namespace Coding_Lab_4
                 #region player paddle stuff
                 rightPaddle.Y = Mouse.GetState().Y;
                 #endregion
+
+                #region powerup stuff
+                if (timer % 300 == 0)
+                {    
+                    powerupType = new Random().Next(1, 4);
+
+                    powerupPosition.X = new Random().Next(brickWidth + 100, (int)window.X - brickWidth - 100);
+                    powerupPosition.Y = new Random().Next(0, (int)window.Y - 32);
+                }
+                #endregion
             }
 
-            Console.WriteLine(ball);
-
+            timer++;
             base.Update(gameTime);
         }
-
+        
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -241,37 +274,61 @@ namespace Coding_Lab_4
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            spriteBatch.Draw(Content.Load<Texture2D>("left_paddle"), leftPaddle, Color.White);
-            spriteBatch.Draw(Content.Load<Texture2D>("small_ball"), ball, Color.White);
-            spriteBatch.Draw(Content.Load<Texture2D>("right_paddle"), rightPaddle, Color.White);
-            spriteBatch.DrawString(spriteFont, goalText, goalArea, Color.Yellow);
-
-            for (int i=0; i<numBricks; i++)
+            
+            if (menuState)
             {
-                int x = (int)window.X - brickWidth;
-                int y = i * brickHeight;
+                // credit to Stack Overflow post
+                // http://stackoverflow.com/questions/6632723/how-to-make-a-texture2d-50-transparent-xna
+                drawRectangle(0, 0, (int)window.X, (int)window.Y, new Color(0, 0, 0, 100), Color.Black);
+            }
+            else
+            {
+                spriteBatch.Draw(Content.Load<Texture2D>("left_paddle"), leftPaddle, Color.White);
+                spriteBatch.Draw(Content.Load<Texture2D>("small_ball"), ball, Color.White);
+                spriteBatch.Draw(Content.Load<Texture2D>("right_paddle"), rightPaddle, Color.White);
+                spriteBatch.DrawString(spriteFont, goalText, goalArea, Color.Yellow);
 
-                if (leftHealth[i] > 0) drawRectangle(0, y, brickWidth, brickHeight, Color.Red, Color.Black);
-                if (leftHealth[i] == 1)
+                for (int i = 0; i < numBricks; i++)
                 {
-                    drawLine(0, y + 50, 20, 5, Color.Black);
-                    drawLine(20, y + 55, 5, -10, Color.Black);
-                    drawLine(25, y + 45, 10, -5, Color.Black);
-                    drawLine(35, y + 40, 15, 10, Color.Black);
+                    int x = (int)window.X - brickWidth;
+                    int y = i * brickHeight;
+
+                    if (leftHealth[i] > 0) drawRectangle(0, y, brickWidth, brickHeight, Color.Red, Color.Black);
+                    if (leftHealth[i] == 1)
+                    {
+                        drawLine(0, y + 50, 20, 5, Color.Black);
+                        drawLine(20, y + 55, 5, -10, Color.Black);
+                        drawLine(25, y + 45, 10, -5, Color.Black);
+                        drawLine(35, y + 40, 15, 10, Color.Black);
+                    }
+
+                    if (rightHealth[i] > 0) drawRectangle(x, y, brickWidth, brickHeight, Color.Red, Color.Black);
+                    if (rightHealth[i] == 1)
+                    {
+                        drawLine(x, y + 50, 20, 5, Color.Black);
+                        drawLine(x + 20, y + 55, 5, -10, Color.Black);
+                        drawLine(x + 25, y + 45, 10, -5, Color.Black);
+                        drawLine(x + 35, y + 40, 15, 10, Color.Black);
+                    }
                 }
 
-                if (rightHealth[i] > 0) drawRectangle(x, y, brickWidth, brickHeight, Color.Red, Color.Black);
-                if (rightHealth[i] == 1)
+                spriteBatch.DrawString(spriteFont, "Computer: " + leftScore, Vector2.Zero, Color.Yellow);
+                spriteBatch.DrawString(spriteFont, "You: " + rightScore, new Vector2(window.X - 90, 0), Color.Yellow);
+
+                switch (powerupType)
                 {
-                    drawLine(x, y + 50, 20, 5, Color.Black);
-                    drawLine(x + 20, y + 55, 5, -10, Color.Black);
-                    drawLine(x + 25, y + 45, 10, -5, Color.Black);
-                    drawLine(x + 35, y + 40, 15, 10, Color.Black);
+                    case 1:
+                        spriteBatch.Draw(Content.Load<Texture2D>("freeze"), powerupPosition, Color.White);
+                        break;
+                    case 2:
+                        spriteBatch.Draw(Content.Load<Texture2D>("speed"), powerupPosition, Color.White);
+                        break;
+                    case 3:
+                        spriteBatch.Draw(Content.Load<Texture2D>("slime"), powerupPosition, Color.White);
+                        break;
                 }
             }
 
-            spriteBatch.DrawString(spriteFont, "Computer: " + leftScore, Vector2.Zero, Color.Yellow);
-            spriteBatch.DrawString(spriteFont, "You: " + rightScore, new Vector2(window.X - 90, 0), Color.Yellow);
             spriteBatch.End();
 
             base.Draw(gameTime);
