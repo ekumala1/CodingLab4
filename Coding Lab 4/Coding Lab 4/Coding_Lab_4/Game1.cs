@@ -18,9 +18,11 @@ namespace Coding_Lab_4
     {
         // gameplay mechanics
         Vector2 window = new Vector2(800, 600);
-        float speed = 3;
+        float speed = 6;
         int numBricks = 5;
         int timer = 0;
+
+        float AIPaddle = 7;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -38,9 +40,6 @@ namespace Coding_Lab_4
         int brickWidth = 50;
         int brickHeight;
 
-
-        // gameplay mechanics
-        float AIPaddle = 5;
 
         public void drawRectangle(int x, int y, int width, int height, Color fill, Color outline)
         {
@@ -239,20 +238,23 @@ namespace Coding_Lab_4
                 #endregion
 
                 #region ai paddle stuff
-<<<<<<< HEAD
-                if (ball.X <= 100)
+                if (ball.X <= 300)
                 {
-                    if (ball.Y > leftPaddle.Y) leftPaddle.Y += 10;
-                    else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= 10;
+                    if (ball.Y > leftPaddle.Y) leftPaddle.Y += AIPaddle;
+                    else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= AIPaddle;
                 }
-=======
-                if (ball.Y > leftPaddle.Y) leftPaddle.Y += AIPaddle - 1;
-                else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= AIPaddle - 1;
->>>>>>> origin/master
+
+                //if (ball.Y > leftPaddle.Y) leftPaddle.Y += AIPaddle - 1;
+                //else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= AIPaddle - 1;
                 #endregion
 
                 #region player paddle stuff
-                rightPaddle.Y = Mouse.GetState().Y;
+                KeyboardState key = Keyboard.GetState();
+                if (key.IsKeyDown(Keys.Up) && rightPaddle.Y >= 0)
+                    rightPaddle.Y -= AIPaddle;
+                if (key.IsKeyDown(Keys.Down) && rightPaddle.Y <= 540)
+                    rightPaddle.Y += AIPaddle;
+
                 #endregion
 
                 #region powerup stuff

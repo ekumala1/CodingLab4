@@ -43,13 +43,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-<<<<<<< HEAD
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\freeze.xnb</Output>
-      <Time>2017-02-17T12:36:08.8122273-07:00</Time>
-=======
       <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\freeze.xnb</Output>
       <Time>2017-02-22T12:29:23.6477381-07:00</Time>
->>>>>>> origin/master
     </Item>
     <Item>
       <Source>speed.bmp</Source>
@@ -57,13 +52,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-<<<<<<< HEAD
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\speed.xnb</Output>
-      <Time>2017-02-17T12:36:08.8167314-07:00</Time>
-=======
       <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\speed.xnb</Output>
       <Time>2017-02-22T12:29:23.6477381-07:00</Time>
->>>>>>> origin/master
     </Item>
     <Item>
       <Source>slime.bmp</Source>
@@ -71,10 +61,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-<<<<<<< HEAD
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\slime.xnb</Output>
-      <Time>2017-02-17T12:36:08.8152294-07:00</Time>
-=======
       <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\slime.xnb</Output>
       <Time>2017-02-22T12:29:23.6477381-07:00</Time>
     </Item>
@@ -104,7 +90,6 @@
       <Options>None</Options>
       <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\hit.xnb</Output>
       <Time>2017-02-17T11:03:10.2464505-07:00</Time>
->>>>>>> origin/master
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
