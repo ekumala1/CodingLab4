@@ -18,18 +18,22 @@ namespace Coding_Lab_4
     {
         // gameplay mechanics
         Vector2 window = new Vector2(800, 600);
-        float speed = 3;
+        float initialBallSpeed = 3;
+        float aiPaddleSpeed = 10;
         int numBricks = 5;
         int timer = 0;
 
+        // temporary or constant variables
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont spriteFont;
         Vector2 leftPaddle, ball, rightPaddle;
         Vector2 ballVelocity;
         Vector2 goalArea;
+        Vector2 powerupPosition;
         int powerupType = 0;
-        Vector2 powerupPosition = new Vector2(0, 0);
+        double powerupTimer = 0;
+        float ballSpeed;
         int[] leftHealth;
         int[] rightHealth;
         string goalText;
@@ -37,10 +41,8 @@ namespace Coding_Lab_4
         double leftScore, rightScore;
         int brickWidth = 50;
         int brickHeight;
-
-
-        // gameplay mechanics
-        float AIPaddle = 5;
+        bool frozen = false, slimy = false;
+        int lastPaddle; // 1 for left, 2 for right
 
         public void drawRectangle(int x, int y, int width, int height, Color fill, Color outline)
         {
@@ -108,6 +110,8 @@ namespace Coding_Lab_4
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            ballSpeed = initialBallSpeed;
+            powerupPosition = window;
 
             base.Initialize();
         }
@@ -128,7 +132,7 @@ namespace Coding_Lab_4
             leftPaddle = new Vector2(brickWidth + 10, 50f);
             ball = new Vector2(window.X / 2, window.Y / 2);
             rightPaddle = new Vector2(window.X - 24 - (brickWidth + 10), 536f);
-            ballVelocity = new Vector2(speed, speed);
+            ballVelocity = new Vector2(ballSpeed, ballSpeed);
             goalText = "";
             brickHeight = (int)(window.Y / numBricks);
 
@@ -180,14 +184,16 @@ namespace Coding_Lab_4
             {
                 #region ball stuff
                 // collisions with paddle
-                if (ball.X + 32 >= rightPaddle.X && ball.Y + 32 >= rightPaddle.Y && ball.Y <= rightPaddle.Y + 64)
+                if (ball.X <= leftPaddle.X + 24 && ball.Y + 32 >= leftPaddle.Y && ball.Y <= leftPaddle.Y + 64)
                 {
-                    ballVelocity = new Vector2(-speed, (ball.Y - (rightPaddle.Y - 32) - 48) / 48 * speed);
+                    if (slimy) ballVelocity = Vector2.Zero;
+                    else ballVelocity = new Vector2(ballSpeed, (ball.Y - (leftPaddle.Y - 32) - 48) / 48 * ballSpeed);
                     Content.Load<SoundEffect>("hit").Play();
                 }
-                else if (ball.X <= leftPaddle.X + 24 && ball.Y + 32 >= leftPaddle.Y && ball.Y <= leftPaddle.Y + 64)
+                else if (ball.X + 32 >= rightPaddle.X && ball.Y + 32 >= rightPaddle.Y && ball.Y <= rightPaddle.Y + 64)
                 {
-                    ballVelocity = new Vector2(speed, (ball.Y - (leftPaddle.Y - 32) - 48) / 48 * speed);
+                    if (slimy) ballVelocity = Vector2.Zero;
+                    else ballVelocity = new Vector2(-ballSpeed, (ball.Y - (rightPaddle.Y - 32) - 48) / 48 * ballSpeed);
                     Content.Load<SoundEffect>("hit").Play();
                 }
 
@@ -198,7 +204,7 @@ namespace Coding_Lab_4
                 if (ball.X <= -32)
                 {
                     ball = new Vector2(window.X / 2, window.Y / 2);
-                    ballVelocity = new Vector2(speed, new Random().Next((int)-speed, (int)speed));
+                    ballVelocity = new Vector2(ballSpeed, new Random().Next((int)-ballSpeed, (int)ballSpeed));
                     goalState = true;
                     goalText = "GOAL!  You have gained one point!\nClick to continue!";
                     goalArea.X = 200;
@@ -207,7 +213,7 @@ namespace Coding_Lab_4
                 else if (ball.X >= window.X)
                 {
                     ball = new Vector2(300f, 300f);
-                    ballVelocity = new Vector2(-speed, new Random().Next((int)-speed, (int)speed));
+                    ballVelocity = new Vector2(-ballSpeed, new Random().Next((int)-ballSpeed, (int)ballSpeed));
                     goalState = true;
                     goalText = "GOAL!  Your enemy has gained one point!\nClick to continue!";
                     goalArea.X = 175;
@@ -233,26 +239,30 @@ namespace Coding_Lab_4
                 }
 
                 // collision with powerups
-                if (collide(ball, powerupPosition, 32)) powerupPosition = window; // move it off-screen
+                if (collide(ball, powerupPosition, 32))
+                {
+                    powerupPosition = window; // move it off-screen
+
+                    if (powerupType == 1) frozen = true;
+                    else if (powerupType == 2) ballSpeed += 5;
+                    else if (powerupType == 3) slimy = true;
+
+                    powerupTimer = 3;
+                }
 
                 ball += ballVelocity;
                 #endregion
 
                 #region ai paddle stuff
-<<<<<<< HEAD
                 if (ball.X <= 100)
                 {
-                    if (ball.Y > leftPaddle.Y) leftPaddle.Y += 10;
-                    else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= 10;
-                }
-=======
-                if (ball.Y > leftPaddle.Y) leftPaddle.Y += AIPaddle - 1;
-                else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= AIPaddle - 1;
->>>>>>> origin/master
+                    if (ball.Y > leftPaddle.Y) leftPaddle.Y += aiPaddleSpeed;
+                    else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= aiPaddleSpeed;
+                }                
                 #endregion
 
                 #region player paddle stuff
-                rightPaddle.Y = Mouse.GetState().Y;
+                if (!frozen) rightPaddle.Y = Mouse.GetState().Y;
                 #endregion
 
                 #region powerup stuff
@@ -267,6 +277,14 @@ namespace Coding_Lab_4
             }
 
             timer++;
+            if (powerupTimer > 0) powerupTimer -= 0.01;
+            else
+            {
+                frozen = false;
+                ballSpeed = initialBallSpeed;
+                slimy = false;
+            }
+
             base.Update(gameTime);
         }
         
