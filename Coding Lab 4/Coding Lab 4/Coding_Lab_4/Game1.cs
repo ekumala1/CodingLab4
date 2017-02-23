@@ -18,21 +18,18 @@ namespace Coding_Lab_4
     {
         // gameplay mechanics
         Vector2 window = new Vector2(800, 600);
-<<<<<<< HEAD
         float speed = 6;
         int numBricks = 5;
         int timer = 0;
 
         float AIPaddle = 7;
 
-=======
-        float initialBallSpeed = 3;
+        float initialBallSpeed = 6;
         float aiPaddleSpeed = 10;
-        int numBricks = 5;
-        int timer = 0;
+
 
         // temporary or constant variables
->>>>>>> 07cb02b1dbf56add3f823064c915d36dfbdec222
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont spriteFont;
@@ -50,12 +47,10 @@ namespace Coding_Lab_4
         double leftScore, rightScore;
         int brickWidth = 50;
         int brickHeight;
-<<<<<<< HEAD
 
-=======
         bool frozen = false, slimy = false;
         int lastPaddle; // 1 for left, 2 for right
->>>>>>> 07cb02b1dbf56add3f823064c915d36dfbdec222
+
 
         public void drawRectangle(int x, int y, int width, int height, Color fill, Color outline)
         {
@@ -267,7 +262,7 @@ namespace Coding_Lab_4
                 #endregion
 
                 #region ai paddle stuff
-<<<<<<< HEAD
+
                 if (ball.X <= 300)
                 {
                     if (ball.Y > leftPaddle.Y) leftPaddle.Y += AIPaddle;
@@ -279,23 +274,14 @@ namespace Coding_Lab_4
                 #endregion
 
                 #region player paddle stuff
-                KeyboardState key = Keyboard.GetState();
-                if (key.IsKeyDown(Keys.Up) && rightPaddle.Y >= 0)
-                    rightPaddle.Y -= AIPaddle;
-                if (key.IsKeyDown(Keys.Down) && rightPaddle.Y <= 540)
-                    rightPaddle.Y += AIPaddle;
-
-=======
-                if (ball.X <= 100)
+                if (!frozen)
                 {
-                    if (ball.Y > leftPaddle.Y) leftPaddle.Y += aiPaddleSpeed;
-                    else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= aiPaddleSpeed;
-                }                
-                #endregion
-
-                #region player paddle stuff
-                if (!frozen) rightPaddle.Y = Mouse.GetState().Y;
->>>>>>> 07cb02b1dbf56add3f823064c915d36dfbdec222
+                    KeyboardState key = Keyboard.GetState();
+                    if (key.IsKeyDown(Keys.Up) && rightPaddle.Y >= 0)
+                        rightPaddle.Y -= AIPaddle;
+                    if (key.IsKeyDown(Keys.Down) && rightPaddle.Y <= 540)
+                        rightPaddle.Y += AIPaddle;
+                }
                 #endregion
 
                 #region powerup stuff
