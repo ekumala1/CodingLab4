@@ -11,6 +11,11 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Coding_Lab_4
 {
+    
+    
+
+
+
     /// <summary>
     /// This is the main type for your game
     /// </summary>
@@ -18,16 +23,13 @@ namespace Coding_Lab_4
     {
         // gameplay mechanics
         Vector2 window = new Vector2(800, 600);
-        float speed = 6;
+        float speed = 8;
         int numBricks = 5;
         int timer = 0;
 
         float AIPaddle = 7;
 
         float initialBallSpeed = 6;
-        float aiPaddleSpeed = 10;
-
-
         // temporary or constant variables
 
         GraphicsDeviceManager graphics;
