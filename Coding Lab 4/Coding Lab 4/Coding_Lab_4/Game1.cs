@@ -18,13 +18,8 @@ namespace Coding_Lab_4
     {
         // gameplay mechanics
         Vector2 window = new Vector2(800, 600);
-<<<<<<< HEAD
         float initialBallSpeed = 4;
         float aiPaddleSpeed = 10;
-=======
-        float initialBallSpeed = 10;
-        float aiPaddleSpeed = 8;
->>>>>>> origin/master
         int numBricks = 5;
         int timer = 0;
 
@@ -261,28 +256,19 @@ namespace Coding_Lab_4
                 #endregion
 
                 #region ai paddle stuff
-                if (ball.X <= 400 && !(frozen && lastPaddle == 2))
+                if (ball.X <= 100 && !(frozen && lastPaddle == 2))
                 {
                     if (ball.Y > leftPaddle.Y) leftPaddle.Y += aiPaddleSpeed;
                     else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= aiPaddleSpeed;
-                }
+                }                
                 #endregion
 
                 #region player paddle stuff
-                if (!(frozen && lastPaddle == 1) && !slimy) {
-                    KeyboardState ks = Keyboard.GetState();
-                    if (ks.IsKeyDown(Keys.Down))
-                        rightPaddle.Y += aiPaddleSpeed;
-                    if (ks.IsKeyDown(Keys.Up))
-                        rightPaddle.Y -= aiPaddleSpeed;
-                } 
+                if (!(frozen && lastPaddle == 1) && !slimy) rightPaddle.Y = Mouse.GetState().Y;
                 else if (slimy)
                 {
-                    KeyboardState ks = Keyboard.GetState();
-                    if (ks.IsKeyDown(Keys.Down))
-                        rightPaddle.Y += aiPaddleSpeed;
-                    if (ks.IsKeyDown(Keys.Up))
-                        rightPaddle.Y -= aiPaddleSpeed;
+                    if (Mouse.GetState().Y > rightPaddle.Y) rightPaddle.Y += 2;
+                    else if (Mouse.GetState().Y < rightPaddle.Y) rightPaddle.Y -= 2;
                 }
 
                 #endregion
