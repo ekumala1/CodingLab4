@@ -2,6 +2,7 @@
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
+<<<<<<< HEAD
       <Source>left_paddle.bmp</Source>
       <Name>left_paddle</Name>
       <Importer>TextureImporter</Importer>
@@ -20,6 +21,8 @@
       <Time>2017-02-24T11:44:35.747408-07:00</Time>
     </Item>
     <Item>
+=======
+>>>>>>> origin/master
       <Source>small_ball.bmp</Source>
       <Name>small_ball</Name>
       <Importer>TextureImporter</Importer>
@@ -108,6 +111,24 @@
       <Options>None</Options>
       <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\friendlyGoal.xnb</Output>
       <Time>2017-02-24T12:01:29.6443206-07:00</Time>
+    </Item>
+    <Item>
+      <Source>left_paddle.png</Source>
+      <Name>left_paddle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\left_paddle.xnb</Output>
+      <Time>2017-02-24T12:28:46.2899385-07:00</Time>
+    </Item>
+    <Item>
+      <Source>right_paddle.png</Source>
+      <Name>right_paddle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\right_paddle.xnb</Output>
+      <Time>2017-02-24T12:29:11.8457673-07:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
