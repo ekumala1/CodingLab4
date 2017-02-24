@@ -196,7 +196,7 @@ namespace Coding_Lab_4
                     Content.Load<SoundEffect>("hit").Play();
                     lastPaddle = 2;
                 }
-
+                
                 // collisions with top and bottom walls
                 if (ball.Y <= 0 || ball.Y >= window.Y - 32) ballVelocity.Y *= -1;
 
