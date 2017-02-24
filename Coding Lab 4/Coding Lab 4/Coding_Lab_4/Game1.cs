@@ -11,11 +11,6 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Coding_Lab_4
 {
-    
-    
-
-
-
     /// <summary>
     /// This is the main type for your game
     /// </summary>
@@ -23,15 +18,12 @@ namespace Coding_Lab_4
     {
         // gameplay mechanics
         Vector2 window = new Vector2(800, 600);
-        float speed = 8;
+        float initialBallSpeed = 3;
+        float aiPaddleSpeed = 10;
         int numBricks = 5;
         int timer = 0;
 
-        float AIPaddle = 7;
-
-        float initialBallSpeed = 6;
         // temporary or constant variables
-
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont spriteFont;
@@ -49,10 +41,8 @@ namespace Coding_Lab_4
         double leftScore, rightScore;
         int brickWidth = 50;
         int brickHeight;
-
         bool frozen = false, slimy = false;
         int lastPaddle; // 1 for left, 2 for right
-
 
         public void drawRectangle(int x, int y, int width, int height, Color fill, Color outline)
         {
@@ -215,7 +205,7 @@ namespace Coding_Lab_4
                 {
                     ball = new Vector2(window.X / 2, window.Y / 2);
                     ballVelocity = new Vector2(ballSpeed, new Random().Next((int)-ballSpeed, (int)ballSpeed));
-                    Content.Load<SoundEffect>("goal").Play();
+                    Content.Load<SoundEffect>("friendlyGoal").Play();
                     goalState = true;
                     goalText = "GOAL!  You have gained one point!\nClick to continue!";
                     goalArea.X = 200;
@@ -266,23 +256,14 @@ namespace Coding_Lab_4
                 #endregion
 
                 #region ai paddle stuff
-<<<<<<< HEAD
                 if (ball.X <= 100 && !(frozen && lastPaddle == 2))
-=======
-
-                if (ball.X <= 300)
->>>>>>> 5ebba675e90b9ccc56609b3eeac4078d7c2cdbea
                 {
-                    if (ball.Y > leftPaddle.Y) leftPaddle.Y += AIPaddle;
-                    else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= AIPaddle;
-                }
-
-                //if (ball.Y > leftPaddle.Y) leftPaddle.Y += AIPaddle - 1;
-                //else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= AIPaddle - 1;
+                    if (ball.Y > leftPaddle.Y) leftPaddle.Y += aiPaddleSpeed;
+                    else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= aiPaddleSpeed;
+                }                
                 #endregion
 
                 #region player paddle stuff
-<<<<<<< HEAD
                 if (!(frozen && lastPaddle == 1) && !slimy) rightPaddle.Y = Mouse.GetState().Y;
                 else if (slimy)
                 {
@@ -290,16 +271,6 @@ namespace Coding_Lab_4
                     else if (Mouse.GetState().Y < rightPaddle.Y) rightPaddle.Y -= 2;
                 }
 
-=======
-                if (!frozen)
-                {
-                    KeyboardState key = Keyboard.GetState();
-                    if (key.IsKeyDown(Keys.Up) && rightPaddle.Y >= 0)
-                        rightPaddle.Y -= AIPaddle;
-                    if (key.IsKeyDown(Keys.Down) && rightPaddle.Y <= 540)
-                        rightPaddle.Y += AIPaddle;
-                }
->>>>>>> 5ebba675e90b9ccc56609b3eeac4078d7c2cdbea
                 #endregion
 
                 #region powerup stuff
