@@ -8,3 +8,5 @@ Content\slime.xnb
 Content\Courier New.xnb
 Content\brick.xnb
 Content\hit.xnb
+Content\enemyGoal.xnb
+Content\friendlyGoal.xnb

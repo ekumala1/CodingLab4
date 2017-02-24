@@ -18,7 +18,7 @@ namespace Coding_Lab_4
     {
         // gameplay mechanics
         Vector2 window = new Vector2(800, 600);
-        float initialBallSpeed = 3;
+        float initialBallSpeed = 4;
         float aiPaddleSpeed = 10;
         int numBricks = 5;
         int timer = 0;
