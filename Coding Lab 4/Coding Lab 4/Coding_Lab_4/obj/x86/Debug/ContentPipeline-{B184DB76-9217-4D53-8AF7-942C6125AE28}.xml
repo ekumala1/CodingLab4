@@ -91,6 +91,24 @@
       <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\hit.xnb</Output>
       <Time>2017-02-13T16:47:08.0171397-07:00</Time>
     </Item>
+    <Item>
+      <Source>goal.wav</Source>
+      <Name>goal</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\goal.xnb</Output>
+      <Time>2017-02-23T14:45:50.4683203-07:00</Time>
+    </Item>
+    <Item>
+      <Source>enemyGoal.wav</Source>
+      <Name>enemyGoal</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\enemyGoal.xnb</Output>
+      <Time>2017-02-23T14:53:25.108823-07:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{B184DB76-9217-4D53-8AF7-942C6125AE28}</ContentProjectGUID>

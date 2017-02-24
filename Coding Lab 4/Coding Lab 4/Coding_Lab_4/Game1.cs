@@ -186,15 +186,15 @@ namespace Coding_Lab_4
                 // collisions with paddle
                 if (ball.X <= leftPaddle.X + 24 && ball.Y + 32 >= leftPaddle.Y && ball.Y <= leftPaddle.Y + 64)
                 {
-                    if (slimy) ballVelocity = Vector2.Zero;
-                    else ballVelocity = new Vector2(ballSpeed, (ball.Y - (leftPaddle.Y - 32) - 48) / 48 * ballSpeed);
+                    ballVelocity = new Vector2(ballSpeed, (ball.Y - (leftPaddle.Y - 32) - 48) / 48 * ballSpeed);
                     Content.Load<SoundEffect>("hit").Play();
+                    lastPaddle = 1;
                 }
                 else if (ball.X + 32 >= rightPaddle.X && ball.Y + 32 >= rightPaddle.Y && ball.Y <= rightPaddle.Y + 64)
                 {
-                    if (slimy) ballVelocity = Vector2.Zero;
-                    else ballVelocity = new Vector2(-ballSpeed, (ball.Y - (rightPaddle.Y - 32) - 48) / 48 * ballSpeed);
+                    ballVelocity = new Vector2(-ballSpeed, (ball.Y - (rightPaddle.Y - 32) - 48) / 48 * ballSpeed);
                     Content.Load<SoundEffect>("hit").Play();
+                    lastPaddle = 2;
                 }
 
                 // collisions with top and bottom walls
@@ -205,6 +205,7 @@ namespace Coding_Lab_4
                 {
                     ball = new Vector2(window.X / 2, window.Y / 2);
                     ballVelocity = new Vector2(ballSpeed, new Random().Next((int)-ballSpeed, (int)ballSpeed));
+                    Content.Load<SoundEffect>("goal").Play();
                     goalState = true;
                     goalText = "GOAL!  You have gained one point!\nClick to continue!";
                     goalArea.X = 200;
@@ -214,6 +215,7 @@ namespace Coding_Lab_4
                 {
                     ball = new Vector2(300f, 300f);
                     ballVelocity = new Vector2(-ballSpeed, new Random().Next((int)-ballSpeed, (int)ballSpeed));
+                    Content.Load<SoundEffect>("enemyGoal").Play();
                     goalState = true;
                     goalText = "GOAL!  Your enemy has gained one point!\nClick to continue!";
                     goalArea.X = 175;
@@ -254,7 +256,7 @@ namespace Coding_Lab_4
                 #endregion
 
                 #region ai paddle stuff
-                if (ball.X <= 100)
+                if (ball.X <= 100 && !(frozen && lastPaddle == 2))
                 {
                     if (ball.Y > leftPaddle.Y) leftPaddle.Y += aiPaddleSpeed;
                     else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= aiPaddleSpeed;
@@ -262,7 +264,13 @@ namespace Coding_Lab_4
                 #endregion
 
                 #region player paddle stuff
-                if (!frozen) rightPaddle.Y = Mouse.GetState().Y;
+                if (!(frozen && lastPaddle == 1) && !slimy) rightPaddle.Y = Mouse.GetState().Y;
+                else if (slimy)
+                {
+                    if (Mouse.GetState().Y > rightPaddle.Y) rightPaddle.Y += 2;
+                    else if (Mouse.GetState().Y < rightPaddle.Y) rightPaddle.Y -= 2;
+                }
+
                 #endregion
 
                 #region powerup stuff
