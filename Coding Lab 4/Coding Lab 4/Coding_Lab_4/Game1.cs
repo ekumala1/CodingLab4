@@ -18,10 +18,12 @@ namespace Coding_Lab_4
     {
         // gameplay mechanics
         Vector2 window = new Vector2(800, 600);
-        float initialBallSpeed = 4;
+        float initialBallSpeed = 8;
         float aiPaddleSpeed = 10;
         int numBricks = 5;
         int timer = 0;
+        int initialPaddleSpeed = 8;
+        int slimedPaddleSpeed = 3;
 
         // temporary or constant variables
         GraphicsDeviceManager graphics;
@@ -260,15 +262,25 @@ namespace Coding_Lab_4
                 {
                     if (ball.Y > leftPaddle.Y) leftPaddle.Y += aiPaddleSpeed;
                     else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= aiPaddleSpeed;
-                }                
+                }
                 #endregion
 
                 #region player paddle stuff
-                if (!(frozen && lastPaddle == 1) && !slimy) rightPaddle.Y = Mouse.GetState().Y;
+                if (!(frozen && lastPaddle == 1) && !slimy)
+                {
+                    KeyboardState ks = Keyboard.GetState();
+                    if (ks.IsKeyDown(Keys.Down))
+                        rightPaddle.Y += initialPaddleSpeed;
+                    else if (ks.IsKeyDown(Keys.Up))
+                        rightPaddle.Y -= initialPaddleSpeed;
+                }
                 else if (slimy)
                 {
-                    if (Mouse.GetState().Y > rightPaddle.Y) rightPaddle.Y += 2;
-                    else if (Mouse.GetState().Y < rightPaddle.Y) rightPaddle.Y -= 2;
+                    KeyboardState ks = Keyboard.GetState();
+                    if (ks.IsKeyDown(Keys.Down))
+                        rightPaddle.Y += slimedPaddleSpeed;
+                    else if (ks.IsKeyDown(Keys.Up))
+                        rightPaddle.Y -= slimedPaddleSpeed;
                 }
 
                 #endregion
