@@ -109,6 +109,15 @@
       <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\friendlyGoal.xnb</Output>
       <Time>2017-02-24T12:01:29.6443206-07:00</Time>
     </Item>
+    <Item>
+      <Source>Magneto.spritefont</Source>
+      <Name>Magneto</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\Magneto.xnb</Output>
+      <Time>2017-02-24T18:31:08.5883535-07:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{B184DB76-9217-4D53-8AF7-942C6125AE28}</ContentProjectGUID>

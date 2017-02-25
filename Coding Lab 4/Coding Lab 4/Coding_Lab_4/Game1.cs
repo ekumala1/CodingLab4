@@ -39,12 +39,16 @@ namespace Coding_Lab_4
         int[] leftHealth;
         int[] rightHealth;
         string goalText;
-        bool goalState, menuState = false;
+        bool goalState, menuState = true;
         double leftScore, rightScore;
         int brickWidth = 50;
         int brickHeight;
         bool frozen = false, slimy = false;
         int lastPaddle; // 1 for left, 2 for right
+        int menuSelected = 1;
+        int gamemode;
+
+        SpriteFont titleFont;
 
         public void drawRectangle(int x, int y, int width, int height, Color fill, Color outline)
         {
@@ -126,11 +130,12 @@ namespace Coding_Lab_4
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteFont = Content.Load<SpriteFont>("Courier New");
+            titleFont = Content.Load<SpriteFont>("Magneto");
 
             leftHealth = new int[numBricks];
             rightHealth = new int[numBricks];
 
-            spriteFont = Content.Load<SpriteFont>("Courier New");
             leftPaddle = new Vector2(brickWidth + 10, 50f);
             ball = new Vector2(window.X / 2, window.Y / 2);
             rightPaddle = new Vector2(window.X - 24 - (brickWidth + 10), 536f);
@@ -258,10 +263,32 @@ namespace Coding_Lab_4
                 #endregion
 
                 #region ai paddle stuff
-                if (ball.X <= 100 && !(frozen && lastPaddle == 2))
+                if (gamemode == 1)
                 {
-                    if (ball.Y > leftPaddle.Y) leftPaddle.Y += aiPaddleSpeed;
-                    else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= aiPaddleSpeed;
+                    if (!(frozen && lastPaddle == 1) && !slimy)
+                    {
+                        KeyboardState ks = Keyboard.GetState();
+                        if (ks.IsKeyDown(Keys.S))
+                            leftPaddle.Y += initialPaddleSpeed;
+                        else if (ks.IsKeyDown(Keys.W))
+                            leftPaddle.Y -= initialPaddleSpeed;
+                    }
+                    else if (slimy)
+                    {
+                        KeyboardState ks = Keyboard.GetState();
+                        if (ks.IsKeyDown(Keys.S))
+                            leftPaddle.Y += slimedPaddleSpeed;
+                        else if (ks.IsKeyDown(Keys.W))
+                            leftPaddle.Y -= slimedPaddleSpeed;
+                    }
+                }
+                else if (gamemode == 2)
+                {
+                    if (ball.X <= 100 && !(frozen && lastPaddle == 2))
+                    {
+                        if (ball.Y > leftPaddle.Y) leftPaddle.Y += aiPaddleSpeed;
+                        else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= aiPaddleSpeed;
+                    }
                 }
                 #endregion
 
@@ -324,6 +351,34 @@ namespace Coding_Lab_4
                 // credit to Stack Overflow post
                 // http://stackoverflow.com/questions/6632723/how-to-make-a-texture2d-50-transparent-xna
                 drawRectangle(0, 0, (int)window.X, (int)window.Y, new Color(0, 0, 0, 100), Color.Black);
+
+                spriteBatch.DrawString(titleFont, "PONG", new Vector2(200, 50), Color.White);
+                spriteBatch.DrawString(titleFont, "Breaker", new Vector2(250, 100), Color.White);
+
+                if (menuSelected == 1)
+                {
+                    spriteBatch.DrawString(titleFont, "Play in 1 vs. 1 mode", new Vector2(100, 350), Color.Yellow);
+                    spriteBatch.DrawString(titleFont, "Play in vs. AI mode", new Vector2(100, 400), Color.White);
+
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                    {
+                        menuState = false;
+                        gamemode = menuSelected;
+                    }
+                    else if (Keyboard.GetState().IsKeyDown(Keys.Down)) menuSelected = 2;
+                }
+                else if (menuSelected == 2)
+                {
+                    spriteBatch.DrawString(titleFont, "Play in 1 vs. 1 mode", new Vector2(100, 350), Color.White);
+                    spriteBatch.DrawString(titleFont, "Play in vs. AI mode", new Vector2(100, 400), Color.Yellow);
+
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                    {
+                        menuState = false;
+                        gamemode = menuSelected;
+                    }
+                    else if (Keyboard.GetState().IsKeyDown(Keys.Up)) menuSelected = 1;
+                }
             }
             else
             {

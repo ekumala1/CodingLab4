@@ -10,3 +10,4 @@ Content\brick.xnb
 Content\hit.xnb
 Content\enemyGoal.xnb
 Content\friendlyGoal.xnb
+Content\Magneto.xnb
