@@ -8,7 +8,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\small_ball.xnb</Output>
-      <Time>2017-02-24T11:44:35.8177913-07:00</Time>
+      <Time>2017-02-24T20:30:10.5369173-07:00</Time>
     </Item>
     <Item>
       <Source>dot.bmp</Source>
@@ -47,33 +47,6 @@
       <Time>2017-02-24T11:44:35.7824375-07:00</Time>
     </Item>
     <Item>
-      <Source>left_paddle.png</Source>
-      <Name>left_paddle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\left_paddle.xnb</Output>
-      <Time>2017-02-24T12:43:52.1775645-07:00</Time>
-    </Item>
-    <Item>
-      <Source>right_paddle.png</Source>
-      <Name>right_paddle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\right_paddle.xnb</Output>
-      <Time>2017-02-24T12:43:52.180566-07:00</Time>
-    </Item>
-    <Item>
-      <Source>Courier New.spritefont</Source>
-      <Name>Courier New</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\Courier New.xnb</Output>
-      <Time>2017-02-24T11:44:35.4680958-07:00</Time>
-    </Item>
-    <Item>
       <Source>brick.wav</Source>
       <Name>brick</Name>
       <Importer>WavImporter</Importer>
@@ -89,7 +62,7 @@
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\hit.xnb</Output>
-      <Time>2017-02-24T11:44:35.6744762-07:00</Time>
+      <Time>2017-02-24T22:28:49.4356434-07:00</Time>
     </Item>
     <Item>
       <Source>enemyGoal.wav</Source>
@@ -116,7 +89,61 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\Magneto.xnb</Output>
-      <Time>2017-02-24T18:31:08.5883535-07:00</Time>
+      <Time>2017-02-24T22:14:32.6390679-07:00</Time>
+    </Item>
+    <Item>
+      <Source>background.bmp</Source>
+      <Name>background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\background.xnb</Output>
+      <Time>2017-02-24T21:19:19.4636072-07:00</Time>
+    </Item>
+    <Item>
+      <Source>right_paddle.bmp</Source>
+      <Name>right_paddle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\right_paddle.xnb</Output>
+      <Time>2017-02-24T22:21:20.6168122-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Courier New.spritefont</Source>
+      <Name>Courier New</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\Courier New.xnb</Output>
+      <Time>2017-02-24T22:14:32.6550804-07:00</Time>
+    </Item>
+    <Item>
+      <Source>left_paddle.bmp</Source>
+      <Name>left_paddle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\left_paddle.xnb</Output>
+      <Time>2017-02-24T22:21:22.7086482-07:00</Time>
+    </Item>
+    <Item>
+      <Source>menuChange.wav</Source>
+      <Name>menuChange</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\menuChange.xnb</Output>
+      <Time>2017-02-26T12:20:48.8444602-07:00</Time>
+    </Item>
+    <Item>
+      <Source>music.wav</Source>
+      <Name>music</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\music.xnb</Output>
+      <Time>2017-02-26T12:48:55.7300803-07:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

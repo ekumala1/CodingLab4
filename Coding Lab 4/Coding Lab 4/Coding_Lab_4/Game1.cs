@@ -18,12 +18,11 @@ namespace Coding_Lab_4
     {
         // gameplay mechanics
         Vector2 window = new Vector2(800, 600);
-        float initialBallSpeed = 8;
-        float aiPaddleSpeed = 10;
-        int numBricks = 5;
-        int timer = 0;
-        int initialPaddleSpeed = 8;
-        int slimedPaddleSpeed = 3;
+        float initialBallSpeed;
+        float aiPaddleSpeed;
+        int numBricks;
+        int initialPaddleSpeed;
+        int slimedPaddleSpeed;
 
         // temporary or constant variables
         GraphicsDeviceManager graphics;
@@ -33,13 +32,15 @@ namespace Coding_Lab_4
         Vector2 ballVelocity;
         Vector2 goalArea;
         Vector2 powerupPosition;
+        KeyboardState lastKeyboardState;
+        SoundEffectInstance music;
         int powerupType = 0;
         double powerupTimer = 0;
         float ballSpeed;
         int[] leftHealth;
         int[] rightHealth;
         string goalText;
-        bool goalState, menuState = true;
+        bool menuState = true, difficultyState, goalState;
         double leftScore, rightScore;
         int brickWidth = 50;
         int brickHeight;
@@ -47,6 +48,7 @@ namespace Coding_Lab_4
         int lastPaddle; // 1 for left, 2 for right
         int menuSelected = 1;
         int gamemode;
+        int timer = 0;
 
         SpriteFont titleFont;
 
@@ -116,14 +118,16 @@ namespace Coding_Lab_4
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            ballSpeed = initialBallSpeed;
             powerupPosition = window;
+            music = Content.Load<SoundEffect>("music").CreateInstance();
+            music.IsLooped = true;
+            music.Play();
 
             base.Initialize();
         }
 
         /// <summary>
-        /// LoadContent will be called once per game and is the place to load
+        ///// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
         protected override void LoadContent()
@@ -133,21 +137,10 @@ namespace Coding_Lab_4
             spriteFont = Content.Load<SpriteFont>("Courier New");
             titleFont = Content.Load<SpriteFont>("Magneto");
 
-            leftHealth = new int[numBricks];
-            rightHealth = new int[numBricks];
-
             leftPaddle = new Vector2(brickWidth + 10, 50f);
             ball = new Vector2(window.X / 2, window.Y / 2);
             rightPaddle = new Vector2(window.X - 24 - (brickWidth + 10), 536f);
-            ballVelocity = new Vector2(ballSpeed, ballSpeed);
             goalText = "";
-            brickHeight = (int)(window.Y / numBricks);
-
-            for (int i=0; i<numBricks; i++)
-            {
-                leftHealth[i] = 2;
-                rightHealth[i] = 2;
-            }
 
             // TODO: use this.Content to load your game content here
         }
@@ -177,17 +170,21 @@ namespace Coding_Lab_4
             {
                 if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                 {
-                    goalState = false;
-                    goalText = "";
-
-                    for (int i = 0; i < numBricks; i++)
+                    if (rightScore >= 10 || leftScore >= 10) menuState = true;
+                    else
                     {
-                        leftHealth[i] = 2;
-                        rightHealth[i] = 2;
+                        goalState = false;
+                        goalText = "";
+
+                        for (int i = 0; i < numBricks; i++)
+                        {
+                            leftHealth[i] = 2;
+                            rightHealth[i] = 2;
+                        }
                     }
                 }
             }
-            else if (!menuState)
+            else if (!menuState && !difficultyState)
             {
                 #region ball stuff
                 // collisions with paddle
@@ -210,23 +207,27 @@ namespace Coding_Lab_4
                 // goals
                 if (ball.X <= -32)
                 {
+                    rightScore += 1;
                     ball = new Vector2(window.X / 2, window.Y / 2);
                     ballVelocity = new Vector2(ballSpeed, new Random().Next((int)-ballSpeed, (int)ballSpeed));
                     Content.Load<SoundEffect>("friendlyGoal").Play();
                     goalState = true;
-                    goalText = "GOAL!  You have gained one point!\nClick to continue!";
+                    goalText = "GOAL!  You have gained one point!";
+                    if (rightScore >= 10) goalText += "\nYou have also won!";
+                    goalText += "\nClick to continue!";
                     goalArea.X = 200;
-                    rightScore += 1;
                 }
                 else if (ball.X >= window.X)
                 {
+                    leftScore += 1;
                     ball = new Vector2(300f, 300f);
                     ballVelocity = new Vector2(-ballSpeed, new Random().Next((int)-ballSpeed, (int)ballSpeed));
                     Content.Load<SoundEffect>("enemyGoal").Play();
                     goalState = true;
-                    goalText = "GOAL!  Your enemy has gained one point!\nClick to continue!";
+                    goalText = "GOAL!  Your enemy has gained one point!";
+                    if (leftScore >= 10) goalText += "\nYou have lost.";
+                    goalText += "\nClick to continue!";
                     goalArea.X = 175;
-                    leftScore += 1;
                 }
 
                 // collisions with bricks
@@ -265,7 +266,7 @@ namespace Coding_Lab_4
                 #region ai paddle stuff
                 if (gamemode == 1)
                 {
-                    if (!(frozen && lastPaddle == 1) && !slimy)
+                    if (!(frozen && lastPaddle == 2) && !(slimy && lastPaddle == 2))
                     {
                         KeyboardState ks = Keyboard.GetState();
                         if (ks.IsKeyDown(Keys.S))
@@ -273,7 +274,7 @@ namespace Coding_Lab_4
                         else if (ks.IsKeyDown(Keys.W))
                             leftPaddle.Y -= initialPaddleSpeed;
                     }
-                    else if (slimy)
+                    else if (slimy && lastPaddle == 2)
                     {
                         KeyboardState ks = Keyboard.GetState();
                         if (ks.IsKeyDown(Keys.S))
@@ -293,7 +294,7 @@ namespace Coding_Lab_4
                 #endregion
 
                 #region player paddle stuff
-                if (!(frozen && lastPaddle == 1) && !slimy)
+                if (!(frozen && lastPaddle == 1) && !(slimy && lastPaddle == 1))
                 {
                     KeyboardState ks = Keyboard.GetState();
                     if (ks.IsKeyDown(Keys.Down))
@@ -301,7 +302,7 @@ namespace Coding_Lab_4
                     else if (ks.IsKeyDown(Keys.Up))
                         rightPaddle.Y -= initialPaddleSpeed;
                 }
-                else if (slimy)
+                else if (slimy && lastPaddle == 1)
                 {
                     KeyboardState ks = Keyboard.GetState();
                     if (ks.IsKeyDown(Keys.Down))
@@ -360,28 +361,151 @@ namespace Coding_Lab_4
                     spriteBatch.DrawString(titleFont, "Play in 1 vs. 1 mode", new Vector2(100, 350), Color.Yellow);
                     spriteBatch.DrawString(titleFont, "Play in vs. AI mode", new Vector2(100, 400), Color.White);
 
-                    if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                    if (lastKeyboardState.IsKeyDown(Keys.Enter) && Keyboard.GetState().IsKeyUp(Keys.Enter))
                     {
                         menuState = false;
+                        menuSelected = 1;
+                        difficultyState = true;
                         gamemode = menuSelected;
                     }
-                    else if (Keyboard.GetState().IsKeyDown(Keys.Down)) menuSelected = 2;
+                    else if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                    {
+                        menuSelected = 2;
+                        Content.Load<SoundEffect>("menuChange").Play(0.3f, 0, 0);
+                    }
                 }
                 else if (menuSelected == 2)
                 {
                     spriteBatch.DrawString(titleFont, "Play in 1 vs. 1 mode", new Vector2(100, 350), Color.White);
                     spriteBatch.DrawString(titleFont, "Play in vs. AI mode", new Vector2(100, 400), Color.Yellow);
 
-                    if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                    if (lastKeyboardState.IsKeyDown(Keys.Enter) && Keyboard.GetState().IsKeyUp(Keys.Enter))
                     {
                         menuState = false;
+                        menuSelected = 2;
+                        difficultyState = true;
                         gamemode = menuSelected;
                     }
-                    else if (Keyboard.GetState().IsKeyDown(Keys.Up)) menuSelected = 1;
+                    else if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                    {
+                        menuSelected = 1;
+                        Content.Load<SoundEffect>("menuChange").Play(0.3f, 0, 0);
+                    }
+                }
+
+            }
+            else if (difficultyState)
+            {
+                drawRectangle(0, 0, (int)window.X, (int)window.Y, new Color(0, 0, 0, 100), Color.Black);
+
+                switch (menuSelected)
+                {
+                    case 1:
+                        spriteBatch.DrawString(titleFont, "Easy", new Vector2(310, 150), Color.Yellow);
+                        spriteBatch.DrawString(titleFont, "Normal", new Vector2(310, 225), Color.White);
+                        spriteBatch.DrawString(titleFont, "Hard", new Vector2(310, 300), Color.White);
+
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                        {
+                            initialBallSpeed = 5;
+                            ballSpeed = initialBallSpeed;
+                            ballVelocity = new Vector2(ballSpeed, ballSpeed);
+                            aiPaddleSpeed = 7;
+                            initialPaddleSpeed = 6;
+                            slimedPaddleSpeed = 3;
+                            #region initialize bricks
+                            numBricks = 3;
+                            brickHeight = (int)window.Y / numBricks;
+                            leftHealth = new int[numBricks];
+                            rightHealth = new int[numBricks];
+
+                            for (int i = 0; i < numBricks; i++)
+                            {
+                                leftHealth[i] = 2;
+                                rightHealth[i] = 2;
+                            }
+                            #endregion
+
+                            difficultyState = false;
+                        }
+                        break;
+                    case 2:
+                        spriteBatch.DrawString(titleFont, "Easy", new Vector2(310, 150), Color.White);
+                        spriteBatch.DrawString(titleFont, "Normal", new Vector2(310, 225), Color.Yellow);
+                        spriteBatch.DrawString(titleFont, "Hard", new Vector2(310, 300), Color.White);
+
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                        {
+                            initialBallSpeed = 8;
+                            ballSpeed = initialBallSpeed;
+                            ballVelocity = new Vector2(ballSpeed, ballSpeed);
+                            aiPaddleSpeed = 10;
+                            initialPaddleSpeed = 8;
+                            slimedPaddleSpeed = 5;
+                            #region initialize bricks
+                            numBricks = 5;
+                            brickHeight = (int)window.Y / numBricks;
+                            leftHealth = new int[numBricks];
+                            rightHealth = new int[numBricks];
+
+                            for (int i = 0; i < numBricks; i++)
+                            {
+                                leftHealth[i] = 2;
+                                rightHealth[i] = 2;
+                            }
+                            #endregion
+
+                            difficultyState = false;
+                        }
+                        break;
+                    case 3:
+                        spriteBatch.DrawString(titleFont, "Easy", new Vector2(310, 150), Color.White);
+                        spriteBatch.DrawString(titleFont, "Normal", new Vector2(310, 225), Color.White);
+                        spriteBatch.DrawString(titleFont, "Hard", new Vector2(310, 300), Color.Yellow);
+
+                        if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                        {
+                            initialBallSpeed = 9;
+                            ballSpeed = initialBallSpeed;
+                            ballVelocity = new Vector2(ballSpeed, ballSpeed);
+                            aiPaddleSpeed = 11;
+                            initialPaddleSpeed = 9;
+                            slimedPaddleSpeed = 4;
+                            #region initialize bricks
+                            numBricks = 7;
+                            brickHeight = (int)window.Y / numBricks;
+                            leftHealth = new int[numBricks];
+                            rightHealth = new int[numBricks];
+
+                            for (int i = 0; i < numBricks; i++)
+                            {
+                                leftHealth[i] = 2;
+                                rightHealth[i] = 2;
+                            }
+                            #endregion
+
+                            difficultyState = false;
+                        }
+                        break;
+                }
+
+                if (lastKeyboardState.IsKeyDown(Keys.Up) && Keyboard.GetState().IsKeyUp(Keys.Up)
+                    && menuSelected > 1)
+                {
+                    menuSelected--;
+                    Content.Load<SoundEffect>("menuChange").Play();
+                }
+                else if (lastKeyboardState.IsKeyDown(Keys.Down) && Keyboard.GetState().IsKeyUp(Keys.Down)
+                    && menuSelected < 3)
+                {
+                    menuSelected++;
+                    Content.Load<SoundEffect>("menuChange").Play();
                 }
             }
             else
             {
+                spriteBatch.Draw(Content.Load<Texture2D>("background"), Vector2.Zero, Color.White);
+
                 spriteBatch.Draw(Content.Load<Texture2D>("left_paddle"), leftPaddle, Color.White);
                 spriteBatch.Draw(Content.Load<Texture2D>("small_ball"), ball, Color.White);
                 spriteBatch.Draw(Content.Load<Texture2D>("right_paddle"), rightPaddle, Color.White);
@@ -392,7 +516,7 @@ namespace Coding_Lab_4
                     int x = (int)window.X - brickWidth;
                     int y = i * brickHeight;
 
-                    if (leftHealth[i] > 0) drawRectangle(0, y, brickWidth, brickHeight, Color.Red, Color.Black);
+                    if (leftHealth[i] > 0) drawRectangle(0, y, brickWidth, brickHeight, Color.White, Color.Black);
                     if (leftHealth[i] == 1)
                     {
                         drawLine(0, y + 50, 20, 5, Color.Black);
@@ -401,7 +525,7 @@ namespace Coding_Lab_4
                         drawLine(35, y + 40, 15, 10, Color.Black);
                     }
 
-                    if (rightHealth[i] > 0) drawRectangle(x, y, brickWidth, brickHeight, Color.Red, Color.Black);
+                    if (rightHealth[i] > 0) drawRectangle(x, y, brickWidth, brickHeight, Color.White, Color.Black);
                     if (rightHealth[i] == 1)
                     {
                         drawLine(x, y + 50, 20, 5, Color.Black);
@@ -411,8 +535,8 @@ namespace Coding_Lab_4
                     }
                 }
 
-                spriteBatch.DrawString(spriteFont, "Computer: " + leftScore, Vector2.Zero, Color.Yellow);
-                spriteBatch.DrawString(spriteFont, "You: " + rightScore, new Vector2(window.X - 90, 0), Color.Yellow);
+                spriteBatch.DrawString(spriteFont, "" + Math.Round(leftScore, 1), new Vector2(window.X / 2 - 50, 0), Color.Yellow);
+                spriteBatch.DrawString(spriteFont, "" + Math.Round(rightScore, 1), new Vector2(window.X / 2 + 25, 0), Color.Yellow);
 
                 switch (powerupType)
                 {
@@ -428,6 +552,7 @@ namespace Coding_Lab_4
                 }
             }
 
+            lastKeyboardState = Keyboard.GetState();
             spriteBatch.End();
 
             base.Draw(gameTime);
