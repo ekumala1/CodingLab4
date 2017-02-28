@@ -2,85 +2,13 @@
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
-      <Source>small_ball.bmp</Source>
-      <Name>small_ball</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
+      <Source>Courier New.spritefont</Source>
+      <Name>Courier New</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\small_ball.xnb</Output>
-      <Time>2017-02-24T20:30:10.5369173-07:00</Time>
-    </Item>
-    <Item>
-      <Source>dot.bmp</Source>
-      <Name>dot</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\dot.xnb</Output>
-      <Time>2017-02-24T11:44:35.5955857-07:00</Time>
-    </Item>
-    <Item>
-      <Source>freeze.bmp</Source>
-      <Name>freeze</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\freeze.xnb</Output>
-      <Time>2017-02-24T11:44:35.6336259-07:00</Time>
-    </Item>
-    <Item>
-      <Source>speed.bmp</Source>
-      <Name>speed</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\speed.xnb</Output>
-      <Time>2017-02-24T11:44:35.85182-07:00</Time>
-    </Item>
-    <Item>
-      <Source>slime.bmp</Source>
-      <Name>slime</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\slime.xnb</Output>
-      <Time>2017-02-24T11:44:35.7824375-07:00</Time>
-    </Item>
-    <Item>
-      <Source>brick.wav</Source>
-      <Name>brick</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\brick.xnb</Output>
-      <Time>2017-02-24T11:44:35.561563-07:00</Time>
-    </Item>
-    <Item>
-      <Source>hit.wav</Source>
-      <Name>hit</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\hit.xnb</Output>
-      <Time>2017-02-24T22:28:49.4356434-07:00</Time>
-    </Item>
-    <Item>
-      <Source>enemyGoal.wav</Source>
-      <Name>enemyGoal</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\enemyGoal.xnb</Output>
-      <Time>2017-02-24T12:01:29.6043172-07:00</Time>
-    </Item>
-    <Item>
-      <Source>friendlyGoal.wav</Source>
-      <Name>friendlyGoal</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\friendlyGoal.xnb</Output>
-      <Time>2017-02-24T12:01:29.6443206-07:00</Time>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\Courier New.xnb</Output>
+      <Time>2017-02-27T11:13:25.6676456-07:00</Time>
     </Item>
     <Item>
       <Source>Magneto.spritefont</Source>
@@ -88,44 +16,44 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\Magneto.xnb</Output>
-      <Time>2017-02-24T22:14:32.6390679-07:00</Time>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\Magneto.xnb</Output>
+      <Time>2017-02-27T11:14:49.2692409-07:00</Time>
     </Item>
     <Item>
-      <Source>background.bmp</Source>
-      <Name>background</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
+      <Source>brick.wav</Source>
+      <Name>brick</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\background.xnb</Output>
-      <Time>2017-02-24T21:19:19.4636072-07:00</Time>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\brick.xnb</Output>
+      <Time>2017-02-27T11:13:25.6832733-07:00</Time>
     </Item>
     <Item>
-      <Source>right_paddle.bmp</Source>
-      <Name>right_paddle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
+      <Source>enemyGoal.wav</Source>
+      <Name>enemyGoal</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\right_paddle.xnb</Output>
-      <Time>2017-02-24T22:21:20.6168122-07:00</Time>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\enemyGoal.xnb</Output>
+      <Time>2017-02-27T11:13:25.6988988-07:00</Time>
     </Item>
     <Item>
-      <Source>Courier New.spritefont</Source>
-      <Name>Courier New</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
+      <Source>friendlyGoal.wav</Source>
+      <Name>friendlyGoal</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\Courier New.xnb</Output>
-      <Time>2017-02-24T22:14:32.6550804-07:00</Time>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\friendlyGoal.xnb</Output>
+      <Time>2017-02-27T11:13:25.7155322-07:00</Time>
     </Item>
     <Item>
-      <Source>left_paddle.bmp</Source>
-      <Name>left_paddle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
+      <Source>hit.wav</Source>
+      <Name>hit</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\left_paddle.xnb</Output>
-      <Time>2017-02-24T22:21:22.7086482-07:00</Time>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\hit.xnb</Output>
+      <Time>2017-02-27T11:13:25.7190411-07:00</Time>
     </Item>
     <Item>
       <Source>menuChange.wav</Source>
@@ -133,8 +61,8 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\menuChange.xnb</Output>
-      <Time>2017-02-26T12:20:48.8444602-07:00</Time>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\menuChange.xnb</Output>
+      <Time>2017-02-27T11:13:25.7205453-07:00</Time>
     </Item>
     <Item>
       <Source>music.wav</Source>
@@ -142,8 +70,80 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\music.xnb</Output>
-      <Time>2017-02-26T12:48:55.7300803-07:00</Time>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\music.xnb</Output>
+      <Time>2017-02-27T11:13:25.7361766-07:00</Time>
+    </Item>
+    <Item>
+      <Source>dot.bmp</Source>
+      <Name>dot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\dot.xnb</Output>
+      <Time>2017-02-27T11:13:25.6988988-07:00</Time>
+    </Item>
+    <Item>
+      <Source>freeze.bmp</Source>
+      <Name>freeze</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\freeze.xnb</Output>
+      <Time>2017-02-27T11:13:25.6988988-07:00</Time>
+    </Item>
+    <Item>
+      <Source>speed.bmp</Source>
+      <Name>speed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\speed.xnb</Output>
+      <Time>2017-02-27T11:13:25.7361766-07:00</Time>
+    </Item>
+    <Item>
+      <Source>slime.bmp</Source>
+      <Name>slime</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\slime.xnb</Output>
+      <Time>2017-02-27T11:13:25.7361766-07:00</Time>
+    </Item>
+    <Item>
+      <Source>small_ball.bmp</Source>
+      <Name>small_ball</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\small_ball.xnb</Output>
+      <Time>2017-02-27T11:13:25.7361766-07:00</Time>
+    </Item>
+    <Item>
+      <Source>background.bmp</Source>
+      <Name>background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\background.xnb</Output>
+      <Time>2017-02-27T11:13:25.6832733-07:00</Time>
+    </Item>
+    <Item>
+      <Source>left_paddle.bmp</Source>
+      <Name>left_paddle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\left_paddle.xnb</Output>
+      <Time>2017-02-27T11:13:25.7205453-07:00</Time>
+    </Item>
+    <Item>
+      <Source>right_paddle.bmp</Source>
+      <Name>right_paddle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\right_paddle.xnb</Output>
+      <Time>2017-02-27T11:13:25.7361766-07:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -152,10 +152,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4Content\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Daneolog\Documents\GitHub\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4Content\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Taylor\CodingLab4\Coding Lab 4\Coding Lab 4\Coding_Lab_4\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -183,8 +183,8 @@
         <Value>2011-09-01T17:22:30-06:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2017-01-20T13:48:38.7951636-07:00</Value>
+        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2017-01-20T12:01:44.3540463-07:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

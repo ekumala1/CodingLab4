@@ -28,7 +28,9 @@ namespace Coding_Lab_4
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont spriteFont;
-        Vector2 leftPaddle, ball, rightPaddle;
+        Vector2 ball;
+        Paddle leftPaddle = new Paddle(Vector2.Zero , 0);
+        Paddle rightPaddle = new Paddle(Vector2.Zero, 0);
         Vector2 ballVelocity;
         Vector2 goalArea;
         Vector2 powerupPosition;
@@ -135,11 +137,11 @@ namespace Coding_Lab_4
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             spriteFont = Content.Load<SpriteFont>("Courier New");
-            titleFont = Content.Load<SpriteFont>("Magneto");
+            titleFont = Content.Load<SpriteFont>("Courier New");
 
-            leftPaddle = new Vector2(brickWidth + 10, 50f);
+            leftPaddle.pos = new Vector2(brickWidth + 10, 50f);
             ball = new Vector2(window.X / 2, window.Y / 2);
-            rightPaddle = new Vector2(window.X - 24 - (brickWidth + 10), 536f);
+            rightPaddle.pos = new Vector2(window.X - 24 - (brickWidth + 10), 536f);
             goalText = "";
 
             // TODO: use this.Content to load your game content here
@@ -188,15 +190,15 @@ namespace Coding_Lab_4
             {
                 #region ball stuff
                 // collisions with paddle
-                if (ball.X <= leftPaddle.X + 24 && ball.Y + 32 >= leftPaddle.Y && ball.Y <= leftPaddle.Y + 64)
+                if (ball.X <= leftPaddle.pos.X + 24 && ball.Y + 32 >= leftPaddle.pos.Y && ball.Y <= leftPaddle.pos.Y + 64)
                 {
-                    ballVelocity = new Vector2(ballSpeed, (ball.Y - (leftPaddle.Y - 32) - 48) / 48 * ballSpeed);
+                    ballVelocity = new Vector2(ballSpeed, (ball.Y - (leftPaddle.pos.Y - 32) - 48) / 48 * ballSpeed);
                     Content.Load<SoundEffect>("hit").Play();
                     lastPaddle = 1;
                 }
-                else if (ball.X + 32 >= rightPaddle.X && ball.Y + 32 >= rightPaddle.Y && ball.Y <= rightPaddle.Y + 64)
+                else if (ball.X + 32 >= rightPaddle.pos.X && ball.Y + 32 >= rightPaddle.pos.Y && ball.Y <= rightPaddle.pos.Y + 64)
                 {
-                    ballVelocity = new Vector2(-ballSpeed, (ball.Y - (rightPaddle.Y - 32) - 48) / 48 * ballSpeed);
+                    ballVelocity = new Vector2(-ballSpeed, (ball.Y - (rightPaddle.pos.Y - 32) - 48) / 48 * ballSpeed);
                     Content.Load<SoundEffect>("hit").Play();
                     lastPaddle = 2;
                 }
@@ -268,27 +270,19 @@ namespace Coding_Lab_4
                 {
                     if (!(frozen && lastPaddle == 2) && !(slimy && lastPaddle == 2))
                     {
-                        KeyboardState ks = Keyboard.GetState();
-                        if (ks.IsKeyDown(Keys.S))
-                            leftPaddle.Y += initialPaddleSpeed;
-                        else if (ks.IsKeyDown(Keys.W))
-                            leftPaddle.Y -= initialPaddleSpeed;
+                        leftPaddle.move();
                     }
                     else if (slimy && lastPaddle == 2)
                     {
-                        KeyboardState ks = Keyboard.GetState();
-                        if (ks.IsKeyDown(Keys.S))
-                            leftPaddle.Y += slimedPaddleSpeed;
-                        else if (ks.IsKeyDown(Keys.W))
-                            leftPaddle.Y -= slimedPaddleSpeed;
+                        leftPaddle.move();
                     }
                 }
                 else if (gamemode == 2)
                 {
-                    if (ball.X <= 100 && !(frozen && lastPaddle == 2))
+                    if (ball.X <= 300 && !(frozen && lastPaddle == 2))
                     {
-                        if (ball.Y > leftPaddle.Y) leftPaddle.Y += aiPaddleSpeed;
-                        else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= aiPaddleSpeed;
+                        if (ball.Y > leftPaddle.pos.Y) leftPaddle.pos.Y += aiPaddleSpeed;
+                        else if (ball.Y < leftPaddle.pos.Y) leftPaddle.pos.Y -= aiPaddleSpeed;
                     }
                 }
                 #endregion
@@ -296,19 +290,11 @@ namespace Coding_Lab_4
                 #region player paddle stuff
                 if (!(frozen && lastPaddle == 1) && !(slimy && lastPaddle == 1))
                 {
-                    KeyboardState ks = Keyboard.GetState();
-                    if (ks.IsKeyDown(Keys.Down))
-                        rightPaddle.Y += initialPaddleSpeed;
-                    else if (ks.IsKeyDown(Keys.Up))
-                        rightPaddle.Y -= initialPaddleSpeed;
+                    rightPaddle.move();
                 }
                 else if (slimy && lastPaddle == 1)
                 {
-                    KeyboardState ks = Keyboard.GetState();
-                    if (ks.IsKeyDown(Keys.Down))
-                        rightPaddle.Y += slimedPaddleSpeed;
-                    else if (ks.IsKeyDown(Keys.Up))
-                        rightPaddle.Y -= slimedPaddleSpeed;
+                    rightPaddle.move();
                 }
 
                 #endregion
@@ -411,6 +397,7 @@ namespace Coding_Lab_4
                             ballSpeed = initialBallSpeed;
                             ballVelocity = new Vector2(ballSpeed, ballSpeed);
                             aiPaddleSpeed = 7;
+                            rightPaddle.speed = aiPaddleSpeed;
                             initialPaddleSpeed = 6;
                             slimedPaddleSpeed = 3;
                             #region initialize bricks
@@ -440,6 +427,7 @@ namespace Coding_Lab_4
                             ballSpeed = initialBallSpeed;
                             ballVelocity = new Vector2(ballSpeed, ballSpeed);
                             aiPaddleSpeed = 10;
+                            rightPaddle.speed = aiPaddleSpeed;
                             initialPaddleSpeed = 8;
                             slimedPaddleSpeed = 5;
                             #region initialize bricks
@@ -469,6 +457,7 @@ namespace Coding_Lab_4
                             ballSpeed = initialBallSpeed;
                             ballVelocity = new Vector2(ballSpeed, ballSpeed);
                             aiPaddleSpeed = 11;
+                            rightPaddle.speed = aiPaddleSpeed;
                             initialPaddleSpeed = 9;
                             slimedPaddleSpeed = 4;
                             #region initialize bricks
@@ -506,9 +495,9 @@ namespace Coding_Lab_4
             {
                 spriteBatch.Draw(Content.Load<Texture2D>("background"), Vector2.Zero, Color.White);
 
-                spriteBatch.Draw(Content.Load<Texture2D>("left_paddle"), leftPaddle, Color.White);
+                spriteBatch.Draw(Content.Load<Texture2D>("left_paddle"), leftPaddle.pos, Color.White);
                 spriteBatch.Draw(Content.Load<Texture2D>("small_ball"), ball, Color.White);
-                spriteBatch.Draw(Content.Load<Texture2D>("right_paddle"), rightPaddle, Color.White);
+                spriteBatch.Draw(Content.Load<Texture2D>("right_paddle"), rightPaddle.pos, Color.White);
                 spriteBatch.DrawString(spriteFont, goalText, goalArea, Color.Yellow);
 
                 for (int i = 0; i < numBricks; i++)
