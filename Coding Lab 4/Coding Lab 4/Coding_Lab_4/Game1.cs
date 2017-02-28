@@ -21,8 +21,7 @@ namespace Coding_Lab_4
         float initialBallSpeed;
         float aiPaddleSpeed;
         int numBricks;
-        int initialPaddleSpeed;
-        int slimedPaddleSpeed;
+        int initialPaddleSpeed, slimedPaddleSpeed, greasedPaddleSpeed;        
 
         // temporary or constant variables
         GraphicsDeviceManager graphics;
@@ -40,11 +39,11 @@ namespace Coding_Lab_4
         int[] leftHealth;
         int[] rightHealth;
         string goalText;
-        bool menuState = true, difficultyState, goalState;
+        bool menuState = true, difficultyState, goalState, pauseState;
         double leftScore, rightScore;
         int brickWidth = 50;
         int brickHeight;
-        bool frozen = false, slimy = false;
+        bool frozen = false, grease = false, slimy = false, flexibility = false;
         int lastPaddle; // 1 for left, 2 for right
         int menuSelected = 1;
         int gamemode;
@@ -142,6 +141,9 @@ namespace Coding_Lab_4
             rightPaddle = new Vector2(window.X - 24 - (brickWidth + 10), 536f);
             goalText = "";
 
+            ballSpeed = 5;
+            ballVelocity = new Vector2(ballSpeed, 0);
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -165,8 +167,252 @@ namespace Coding_Lab_4
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            if (!goalState)
+            {
+                #region collisions with paddle
+                if (ball.X <= leftPaddle.X + 24 && ball.Y + 32 >= leftPaddle.Y && ball.Y <= leftPaddle.Y + 64)
+                {
+                    ballVelocity = new Vector2(ballSpeed, (ball.Y - (leftPaddle.Y - 32) - 48) / 48 * ballSpeed);
+                    if (!menuState && !difficultyState) Content.Load<SoundEffect>("hit").Play();
+                    lastPaddle = 1;
+                }
+                else if (ball.X + 32 >= rightPaddle.X && ball.Y + 32 >= rightPaddle.Y && ball.Y <= rightPaddle.Y + 64)
+                {
+                    ballVelocity = new Vector2(-ballSpeed, (ball.Y - (rightPaddle.Y - 32) - 48) / 48 * ballSpeed);
+                    if (!menuState && !difficultyState) Content.Load<SoundEffect>("hit").Play();
+                    lastPaddle = 2;
+                }
+                #endregion
+
+                // collisions with top and bottom walls
+                if (ball.Y <= 0 || ball.Y >= window.Y - 32) ballVelocity.Y *= -1;
+
+                #region goals
+                if (ball.X <= -32)
+                {
+                    rightScore += 1;
+                    ball = new Vector2(window.X / 2, window.Y / 2);
+                    ballVelocity = new Vector2(ballSpeed, new Random().Next((int)-ballSpeed, (int)ballSpeed));
+                    Content.Load<SoundEffect>("buzzer").Play();
+                    goalState = true;
+
+                    if (!menuState && !difficultyState)
+                    {
+                        goalText = "GOAL!  You have gained one point!";
+                        if (rightScore >= 10 && !menuState && !difficultyState) goalText += "\nYou have also won!";
+                        goalText += "\nClick to continue!";
+                    }
+
+                    goalArea.X = 200;
+                }
+                else if (ball.X >= window.X)
+                {
+                    leftScore += 1;
+                    ball = new Vector2(300f, 300f);
+                    ballVelocity = new Vector2(-ballSpeed, new Random().Next((int)-ballSpeed, (int)ballSpeed));
+                    Content.Load<SoundEffect>("buzzer").Play();
+                    goalState = true;
+
+                    if (!menuState && !difficultyState)
+                    {
+                        goalText = "GOAL!  Your enemy has gained one point!";
+                        if (leftScore >= 10 && !menuState && !difficultyState) goalText += "\nYou have lost.";
+                        goalText += "\nClick to continue!";
+                    }
+
+                    goalArea.X = 175;
+                }
+                #endregion
+
+                #region collisions with bricks
+                if (!menuState && !difficultyState)
+                {
+                    if (ball.X <= brickWidth && leftHealth[(int)(ball.Y / brickHeight)] != 0)
+                    {
+                        if (leftHealth[(int)(ball.Y / brickHeight)] == 1) rightScore += 1.0 / numBricks;
+
+                        leftHealth[(int)(ball.Y / brickHeight)]--;
+                        ballVelocity.X *= -1;
+                        Content.Load<SoundEffect>("brick").Play();
+                    }
+                    else if (ball.X + 32 >= window.X - brickWidth && rightHealth[(int)(ball.Y / brickHeight)] != 0)
+                    {
+                        if (rightHealth[(int)(ball.Y / brickHeight)] == 1) leftScore += 1.0 / numBricks;
+
+                        rightHealth[(int)(ball.Y / brickHeight)]--;
+                        ballVelocity.X *= -1;
+                        Content.Load<SoundEffect>("brick").Play();
+                    }
+                }
+                #endregion
+
+                #region collision with powerups
+                if (collide(ball, powerupPosition, 32))
+                {
+                    powerupPosition = window; // move it off-screen
+
+                    if (powerupType == 1) frozen = true;
+                    else if (powerupType == 2) ballSpeed += 5;
+                    else if (powerupType == 3) grease = true;
+                    else if (powerupType == 4) ballSpeed -= 2;
+                    else if (powerupType == 5) slimy = true;
+                    else if (powerupType == 6) flexibility = true;
+
+                    powerupTimer = 3;
+                }
+                #endregion
+
+                #region ai paddle stuff
+                if (!menuState && !difficultyState)
+                {
+                    if (gamemode == 1)
+                    {
+                        if (!(frozen && lastPaddle == 2) && !(slimy && lastPaddle == 2) && (!grease && lastPaddle == 2))
+                        {
+                            KeyboardState ks = Keyboard.GetState();
+                            if (ks.IsKeyDown(Keys.S))
+                                leftPaddle.Y += initialPaddleSpeed;
+                            else if (ks.IsKeyDown(Keys.W))
+                                leftPaddle.Y -= initialPaddleSpeed;
+
+                            if (flexibility)
+                            {
+                                if (ks.IsKeyDown(Keys.Right))
+                                    leftPaddle.X += initialPaddleSpeed;
+                                else if (ks.IsKeyDown(Keys.Left))
+                                    leftPaddle.X -= initialPaddleSpeed;
+                            }
+                        }
+                        else if (slimy && lastPaddle == 2)
+                        {
+                            KeyboardState ks = Keyboard.GetState();
+                            if (ks.IsKeyDown(Keys.S))
+                                leftPaddle.Y += slimedPaddleSpeed;
+                            else if (ks.IsKeyDown(Keys.W))
+                                leftPaddle.Y -= slimedPaddleSpeed;
+
+                            if (flexibility)
+                            {
+                                if (ks.IsKeyDown(Keys.Right))
+                                    leftPaddle.X += slimedPaddleSpeed;
+                                else if (ks.IsKeyDown(Keys.Left))
+                                    leftPaddle.X -= slimedPaddleSpeed;
+                            }
+                        }
+                        else if (grease && lastPaddle == 2)
+                        {
+                            KeyboardState ks = Keyboard.GetState();
+                            if (ks.IsKeyDown(Keys.S))
+                                leftPaddle.Y += greasedPaddleSpeed;
+                            else if (ks.IsKeyDown(Keys.W))
+                                leftPaddle.Y -= greasedPaddleSpeed;
+
+                            if (flexibility)
+                            {
+                                if (ks.IsKeyDown(Keys.Right))
+                                    leftPaddle.X += greasedPaddleSpeed;
+                                else if (ks.IsKeyDown(Keys.Left))
+                                    leftPaddle.X -= greasedPaddleSpeed;
+                            }
+                        }
+                    }
+                    else if (gamemode == 2)
+                    {
+                        if (ball.X <= 100 && !(frozen && lastPaddle == 2))
+                        {
+                            if (ball.Y > leftPaddle.Y) leftPaddle.Y += aiPaddleSpeed;
+                            else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= aiPaddleSpeed;
+                        }
+                    }
+                }
+                #endregion
+
+                #region player paddle stuff
+                if (!(frozen && lastPaddle == 1) && !(slimy && lastPaddle == 1) && !(grease && lastPaddle == 1))
+                {
+                    KeyboardState ks = Keyboard.GetState();
+                    if (ks.IsKeyDown(Keys.Down))
+                        rightPaddle.Y += initialPaddleSpeed;
+                    else if (ks.IsKeyDown(Keys.Up))
+                        rightPaddle.Y -= initialPaddleSpeed;
+
+                    if (flexibility)
+                    {
+                        if (ks.IsKeyDown(Keys.Right))
+                            rightPaddle.X += initialPaddleSpeed;
+                        else if (ks.IsKeyDown(Keys.Left))
+                            rightPaddle.X -= initialPaddleSpeed;
+                    }
+                }
+                else if (slimy && lastPaddle == 1)
+                {
+                    KeyboardState ks = Keyboard.GetState();
+                    if (ks.IsKeyDown(Keys.Down))
+                        rightPaddle.Y += slimedPaddleSpeed;
+                    else if (ks.IsKeyDown(Keys.Up))
+                        rightPaddle.Y -= slimedPaddleSpeed;
+
+                    if (flexibility)
+                    {
+                        if (ks.IsKeyDown(Keys.Right))
+                            rightPaddle.X += slimedPaddleSpeed;
+                        else if (ks.IsKeyDown(Keys.Left))
+                            rightPaddle.X -= slimedPaddleSpeed;
+                    }
+                }
+                else if (grease && lastPaddle == 1)
+                {
+                    KeyboardState ks = Keyboard.GetState();
+                    if (ks.IsKeyDown(Keys.Down))
+                        rightPaddle.Y += greasedPaddleSpeed;
+                    else if (ks.IsKeyDown(Keys.Up))
+                        rightPaddle.Y -= greasedPaddleSpeed;
+
+                    if (flexibility)
+                    {
+                        if (ks.IsKeyDown(Keys.Right))
+                            rightPaddle.X += greasedPaddleSpeed;
+                        else if (ks.IsKeyDown(Keys.Left))
+                            rightPaddle.X -= greasedPaddleSpeed;
+                    }
+                }
+                #endregion
+
+                #region powerup stuff
+                if (timer % 300 == 0)
+                {
+                    powerupType = new Random().Next(1, 7);
+
+                    powerupPosition.X = new Random().Next(brickWidth + 100, (int)window.X - brickWidth - 100);
+                    powerupPosition.Y = new Random().Next(0, (int)window.Y - 32);
+                }
+
+                if (powerupTimer > 0) powerupTimer -= 0.01;
+                else
+                {
+                    frozen = false;
+                    ballSpeed = initialBallSpeed;
+                    grease = false;
+                    slimy = false;
+                    flexibility = false;
+
+                }
+                #endregion
+
+                timer++;
+                ball += ballVelocity;
+            }
+
             // TODO: Add your update logic here
-            if (goalState)
+            if (menuState || difficultyState)
+            {
+                if (leftPaddle.Y + 64 < ball.Y) leftPaddle.Y = ball.Y - 64;
+                else if (leftPaddle.Y > ball.Y + 32) leftPaddle.Y = ball.Y + 32;
+
+                if (rightPaddle.Y + 64 < ball.Y) rightPaddle.Y = ball.Y - 64;
+                else if (rightPaddle.Y > ball.Y + 32) rightPaddle.Y = ball.Y + 32;
+            }
+            else if (goalState)
             {
                 if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                 {
@@ -184,154 +430,6 @@ namespace Coding_Lab_4
                     }
                 }
             }
-            else if (!menuState && !difficultyState)
-            {
-                #region ball stuff
-                // collisions with paddle
-                if (ball.X <= leftPaddle.X + 24 && ball.Y + 32 >= leftPaddle.Y && ball.Y <= leftPaddle.Y + 64)
-                {
-                    ballVelocity = new Vector2(ballSpeed, (ball.Y - (leftPaddle.Y - 32) - 48) / 48 * ballSpeed);
-                    Content.Load<SoundEffect>("hit").Play();
-                    lastPaddle = 1;
-                }
-                else if (ball.X + 32 >= rightPaddle.X && ball.Y + 32 >= rightPaddle.Y && ball.Y <= rightPaddle.Y + 64)
-                {
-                    ballVelocity = new Vector2(-ballSpeed, (ball.Y - (rightPaddle.Y - 32) - 48) / 48 * ballSpeed);
-                    Content.Load<SoundEffect>("hit").Play();
-                    lastPaddle = 2;
-                }
-                
-                // collisions with top and bottom walls
-                if (ball.Y <= 0 || ball.Y >= window.Y - 32) ballVelocity.Y *= -1;
-
-                // goals
-                if (ball.X <= -32)
-                {
-                    rightScore += 1;
-                    ball = new Vector2(window.X / 2, window.Y / 2);
-                    ballVelocity = new Vector2(ballSpeed, new Random().Next((int)-ballSpeed, (int)ballSpeed));
-                    Content.Load<SoundEffect>("friendlyGoal").Play();
-                    goalState = true;
-                    goalText = "GOAL!  You have gained one point!";
-                    if (rightScore >= 10) goalText += "\nYou have also won!";
-                    goalText += "\nClick to continue!";
-                    goalArea.X = 200;
-                }
-                else if (ball.X >= window.X)
-                {
-                    leftScore += 1;
-                    ball = new Vector2(300f, 300f);
-                    ballVelocity = new Vector2(-ballSpeed, new Random().Next((int)-ballSpeed, (int)ballSpeed));
-                    Content.Load<SoundEffect>("enemyGoal").Play();
-                    goalState = true;
-                    goalText = "GOAL!  Your enemy has gained one point!";
-                    if (leftScore >= 10) goalText += "\nYou have lost.";
-                    goalText += "\nClick to continue!";
-                    goalArea.X = 175;
-                }
-
-                // collisions with bricks
-                if (ball.X <= brickWidth && leftHealth[(int)(ball.Y / brickHeight)] != 0)
-                {
-                    if (leftHealth[(int)(ball.Y / brickHeight)] == 1) rightScore += 1.0 / numBricks;
-
-                    leftHealth[(int)(ball.Y / brickHeight)]--;
-                    ballVelocity.X *= -1;
-                    Content.Load<SoundEffect>("brick").Play();
-                }
-                else if (ball.X + 32 >= window.X - brickWidth && rightHealth[(int)(ball.Y / brickHeight)] != 0)
-                {
-                    if (rightHealth[(int)(ball.Y / brickHeight)] == 1) leftScore += 1.0 / numBricks;
-
-                    rightHealth[(int)(ball.Y / brickHeight)]--;
-                    ballVelocity.X *= -1;
-                    Content.Load<SoundEffect>("brick").Play();
-                }
-
-                // collision with powerups
-                if (collide(ball, powerupPosition, 32))
-                {
-                    powerupPosition = window; // move it off-screen
-
-                    if (powerupType == 1) frozen = true;
-                    else if (powerupType == 2) ballSpeed += 5;
-                    else if (powerupType == 3) slimy = true;
-
-                    powerupTimer = 3;
-                }
-
-                ball += ballVelocity;
-                #endregion
-
-                #region ai paddle stuff
-                if (gamemode == 1)
-                {
-                    if (!(frozen && lastPaddle == 2) && !(slimy && lastPaddle == 2))
-                    {
-                        KeyboardState ks = Keyboard.GetState();
-                        if (ks.IsKeyDown(Keys.S))
-                            leftPaddle.Y += initialPaddleSpeed;
-                        else if (ks.IsKeyDown(Keys.W))
-                            leftPaddle.Y -= initialPaddleSpeed;
-                    }
-                    else if (slimy && lastPaddle == 2)
-                    {
-                        KeyboardState ks = Keyboard.GetState();
-                        if (ks.IsKeyDown(Keys.S))
-                            leftPaddle.Y += slimedPaddleSpeed;
-                        else if (ks.IsKeyDown(Keys.W))
-                            leftPaddle.Y -= slimedPaddleSpeed;
-                    }
-                }
-                else if (gamemode == 2)
-                {
-                    if (ball.X <= 100 && !(frozen && lastPaddle == 2))
-                    {
-                        if (ball.Y > leftPaddle.Y) leftPaddle.Y += aiPaddleSpeed;
-                        else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= aiPaddleSpeed;
-                    }
-                }
-                #endregion
-
-                #region player paddle stuff
-                if (!(frozen && lastPaddle == 1) && !(slimy && lastPaddle == 1))
-                {
-                    KeyboardState ks = Keyboard.GetState();
-                    if (ks.IsKeyDown(Keys.Down))
-                        rightPaddle.Y += initialPaddleSpeed;
-                    else if (ks.IsKeyDown(Keys.Up))
-                        rightPaddle.Y -= initialPaddleSpeed;
-                }
-                else if (slimy && lastPaddle == 1)
-                {
-                    KeyboardState ks = Keyboard.GetState();
-                    if (ks.IsKeyDown(Keys.Down))
-                        rightPaddle.Y += slimedPaddleSpeed;
-                    else if (ks.IsKeyDown(Keys.Up))
-                        rightPaddle.Y -= slimedPaddleSpeed;
-                }
-
-                #endregion
-
-                #region powerup stuff
-                if (timer % 300 == 0)
-                {    
-                    powerupType = new Random().Next(1, 4);
-
-                    powerupPosition.X = new Random().Next(brickWidth + 100, (int)window.X - brickWidth - 100);
-                    powerupPosition.Y = new Random().Next(0, (int)window.Y - 32);
-                }
-                #endregion
-            }
-
-            timer++;
-            if (powerupTimer > 0) powerupTimer -= 0.01;
-            else
-            {
-                frozen = false;
-                ballSpeed = initialBallSpeed;
-                slimy = false;
-            }
 
             base.Update(gameTime);
         }
@@ -346,12 +444,84 @@ namespace Coding_Lab_4
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            
+
+            string powerupString;
+            switch (powerupType)
+            {
+                case 1: powerupString = "Freeze: "; break;
+                case 2: powerupString = "Speed: "; break;
+                case 3: powerupString = "Grease: "; break;
+                case 4: powerupString = "Heavy: "; break;
+                case 5: powerupString = "Slime: "; break;
+                case 6: powerupString = "Flexibility: "; break;
+                default: powerupString = ""; break;
+            }
+            powerupString += Math.Round(powerupTimer, 0);
+
+            spriteBatch.Draw(Content.Load<Texture2D>("background"), Vector2.Zero, Color.White);
+
+            spriteBatch.Draw(Content.Load<Texture2D>("left_paddle"), leftPaddle, Color.White);
+            spriteBatch.Draw(Content.Load<Texture2D>("small_ball"), ball, Color.White);
+            spriteBatch.Draw(Content.Load<Texture2D>("right_paddle"), rightPaddle, Color.White);
+            spriteBatch.DrawString(spriteFont, goalText, goalArea, Color.Yellow);
+
+            if (powerupTimer > 0)
+                spriteBatch.DrawString(spriteFont, powerupString, new Vector2(window.X / 2 - 50, window.Y - 100), Color.Yellow);
+
+            for (int i = 0; i < numBricks; i++)
+            {
+                int x = (int)window.X - brickWidth;
+                int y = i * brickHeight;
+
+                if (leftHealth[i] > 0) drawRectangle(0, y, brickWidth, brickHeight, Color.White, Color.Black);
+                if (leftHealth[i] == 1)
+                {
+                    drawLine(0, y + 50, 20, 5, Color.Black);
+                    drawLine(20, y + 55, 5, -10, Color.Black);
+                    drawLine(25, y + 45, 10, -5, Color.Black);
+                    drawLine(35, y + 40, 15, 10, Color.Black);
+                }
+
+                if (rightHealth[i] > 0) drawRectangle(x, y, brickWidth, brickHeight, Color.White, Color.Black);
+                if (rightHealth[i] == 1)
+                {
+                    drawLine(x, y + 50, 20, 5, Color.Black);
+                    drawLine(x + 20, y + 55, 5, -10, Color.Black);
+                    drawLine(x + 25, y + 45, 10, -5, Color.Black);
+                    drawLine(x + 35, y + 40, 15, 10, Color.Black);
+                }
+            }
+
+            spriteBatch.DrawString(spriteFont, "" + Math.Round(leftScore, 1), new Vector2(window.X / 2 - 50, 0), Color.Yellow);
+            spriteBatch.DrawString(spriteFont, "" + Math.Round(rightScore, 1), new Vector2(window.X / 2 + 25, 0), Color.Yellow);
+
+            switch (powerupType)
+            {
+                case 1:
+                    spriteBatch.Draw(Content.Load<Texture2D>("freeze"), powerupPosition, Color.White);
+                    break;
+                case 2:
+                    spriteBatch.Draw(Content.Load<Texture2D>("speed"), powerupPosition, Color.White);
+                    break;
+                case 3:
+                    spriteBatch.Draw(Content.Load<Texture2D>("grease"), powerupPosition, Color.White);
+                    break;
+                case 4:
+                    spriteBatch.Draw(Content.Load<Texture2D>("heavy"), powerupPosition, Color.White);
+                    break;
+                case 5:
+                    spriteBatch.Draw(Content.Load<Texture2D>("slime"), powerupPosition, Color.White);
+                    break;
+                case 6:
+                    spriteBatch.Draw(Content.Load<Texture2D>("flexibility"), powerupPosition, Color.White);
+                    break;
+            }
+
             if (menuState)
             {
                 // credit to Stack Overflow post
                 // http://stackoverflow.com/questions/6632723/how-to-make-a-texture2d-50-transparent-xna
-                drawRectangle(0, 0, (int)window.X, (int)window.Y, new Color(0, 0, 0, 100), Color.Black);
+                spriteBatch.Draw(Content.Load<Texture2D>("transparency"), new Vector2(0, 0), Color.White);
 
                 spriteBatch.DrawString(titleFont, "PONG", new Vector2(200, 50), Color.White);
                 spriteBatch.DrawString(titleFont, "Breaker", new Vector2(250, 100), Color.White);
@@ -396,7 +566,7 @@ namespace Coding_Lab_4
             }
             else if (difficultyState)
             {
-                drawRectangle(0, 0, (int)window.X, (int)window.Y, new Color(0, 0, 0, 100), Color.Black);
+                spriteBatch.Draw(Content.Load<Texture2D>("transparency"), new Vector2(0, 0), Color.White);
 
                 switch (menuSelected)
                 {
@@ -409,10 +579,10 @@ namespace Coding_Lab_4
                         {
                             initialBallSpeed = 5;
                             ballSpeed = initialBallSpeed;
-                            ballVelocity = new Vector2(ballSpeed, ballSpeed);
                             aiPaddleSpeed = 7;
                             initialPaddleSpeed = 6;
                             slimedPaddleSpeed = 3;
+                            greasedPaddleSpeed = 8;
                             #region initialize bricks
                             numBricks = 3;
                             brickHeight = (int)window.Y / numBricks;
@@ -426,6 +596,7 @@ namespace Coding_Lab_4
                             }
                             #endregion
 
+                            ballVelocity = new Vector2(ballSpeed, ballSpeed);
                             difficultyState = false;
                         }
                         break;
@@ -438,10 +609,10 @@ namespace Coding_Lab_4
                         {
                             initialBallSpeed = 8;
                             ballSpeed = initialBallSpeed;
-                            ballVelocity = new Vector2(ballSpeed, ballSpeed);
-                            aiPaddleSpeed = 10;
+                            aiPaddleSpeed = 15;
                             initialPaddleSpeed = 8;
                             slimedPaddleSpeed = 5;
+                            greasedPaddleSpeed = 10;
                             #region initialize bricks
                             numBricks = 5;
                             brickHeight = (int)window.Y / numBricks;
@@ -455,6 +626,7 @@ namespace Coding_Lab_4
                             }
                             #endregion
 
+                            ballVelocity = new Vector2(ballSpeed, ballSpeed);
                             difficultyState = false;
                         }
                         break;
@@ -467,10 +639,10 @@ namespace Coding_Lab_4
                         {
                             initialBallSpeed = 9;
                             ballSpeed = initialBallSpeed;
-                            ballVelocity = new Vector2(ballSpeed, ballSpeed);
                             aiPaddleSpeed = 11;
                             initialPaddleSpeed = 9;
                             slimedPaddleSpeed = 4;
+                            greasedPaddleSpeed = 10;
                             #region initialize bricks
                             numBricks = 7;
                             brickHeight = (int)window.Y / numBricks;
@@ -484,6 +656,7 @@ namespace Coding_Lab_4
                             }
                             #endregion
 
+                            ballVelocity = new Vector2(ballSpeed, ballSpeed);
                             difficultyState = false;
                         }
                         break;
@@ -502,54 +675,11 @@ namespace Coding_Lab_4
                     Content.Load<SoundEffect>("menuChange").Play();
                 }
             }
-            else
+            else if (pauseState)
             {
-                spriteBatch.Draw(Content.Load<Texture2D>("background"), Vector2.Zero, Color.White);
+                spriteBatch.Draw(Content.Load<Texture2D>("transparency"), new Vector2(0, 0), Color.White);
 
-                spriteBatch.Draw(Content.Load<Texture2D>("left_paddle"), leftPaddle, Color.White);
-                spriteBatch.Draw(Content.Load<Texture2D>("small_ball"), ball, Color.White);
-                spriteBatch.Draw(Content.Load<Texture2D>("right_paddle"), rightPaddle, Color.White);
-                spriteBatch.DrawString(spriteFont, goalText, goalArea, Color.Yellow);
 
-                for (int i = 0; i < numBricks; i++)
-                {
-                    int x = (int)window.X - brickWidth;
-                    int y = i * brickHeight;
-
-                    if (leftHealth[i] > 0) drawRectangle(0, y, brickWidth, brickHeight, Color.White, Color.Black);
-                    if (leftHealth[i] == 1)
-                    {
-                        drawLine(0, y + 50, 20, 5, Color.Black);
-                        drawLine(20, y + 55, 5, -10, Color.Black);
-                        drawLine(25, y + 45, 10, -5, Color.Black);
-                        drawLine(35, y + 40, 15, 10, Color.Black);
-                    }
-
-                    if (rightHealth[i] > 0) drawRectangle(x, y, brickWidth, brickHeight, Color.White, Color.Black);
-                    if (rightHealth[i] == 1)
-                    {
-                        drawLine(x, y + 50, 20, 5, Color.Black);
-                        drawLine(x + 20, y + 55, 5, -10, Color.Black);
-                        drawLine(x + 25, y + 45, 10, -5, Color.Black);
-                        drawLine(x + 35, y + 40, 15, 10, Color.Black);
-                    }
-                }
-
-                spriteBatch.DrawString(spriteFont, "" + Math.Round(leftScore, 1), new Vector2(window.X / 2 - 50, 0), Color.Yellow);
-                spriteBatch.DrawString(spriteFont, "" + Math.Round(rightScore, 1), new Vector2(window.X / 2 + 25, 0), Color.Yellow);
-
-                switch (powerupType)
-                {
-                    case 1:
-                        spriteBatch.Draw(Content.Load<Texture2D>("freeze"), powerupPosition, Color.White);
-                        break;
-                    case 2:
-                        spriteBatch.Draw(Content.Load<Texture2D>("speed"), powerupPosition, Color.White);
-                        break;
-                    case 3:
-                        spriteBatch.Draw(Content.Load<Texture2D>("slime"), powerupPosition, Color.White);
-                        break;
-                }
             }
 
             lastKeyboardState = Keyboard.GetState();

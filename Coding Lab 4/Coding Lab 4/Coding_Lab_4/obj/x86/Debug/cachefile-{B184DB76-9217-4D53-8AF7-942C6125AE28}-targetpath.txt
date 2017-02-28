@@ -5,8 +5,6 @@ Content\speed.xnb
 Content\slime.xnb
 Content\brick.xnb
 Content\hit.xnb
-Content\enemyGoal.xnb
-Content\friendlyGoal.xnb
 Content\Magneto.xnb
 Content\background.xnb
 Content\right_paddle.xnb
@@ -14,3 +12,8 @@ Content\Courier New.xnb
 Content\left_paddle.xnb
 Content\menuChange.xnb
 Content\music.xnb
+Content\buzzer.xnb
+Content\transparency.xnb
+Content\flexibility.xnb
+Content\heavy.xnb
+Content\grease.xnb
