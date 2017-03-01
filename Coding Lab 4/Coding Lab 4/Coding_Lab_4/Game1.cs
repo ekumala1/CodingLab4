@@ -331,55 +331,55 @@ namespace Coding_Lab_4
                 if (!(frozen && lastPaddle == 1) && !(slimy && lastPaddle == 1) && !(grease && lastPaddle == 1))
                 {
                     KeyboardState ks = Keyboard.GetState();
-                    if (ks.IsKeyDown(Keys.Down))
+                    if (ks.IsKeyDown(Keys.Down) && rightPaddle.Y + 64 <= window.Y)
                         rightPaddle.Y += initialPaddleSpeed;
-                    else if (ks.IsKeyDown(Keys.Up))
+                    else if (ks.IsKeyDown(Keys.Up) && rightPaddle.Y >= 0)
                         rightPaddle.Y -= initialPaddleSpeed;
 
                     if (flexibility)
                     {
-                        if (ks.IsKeyDown(Keys.Right))
+                        if (ks.IsKeyDown(Keys.Right) && rightPaddle.X <= window.X - 24 - (brickWidth + 10))
                             rightPaddle.X += initialPaddleSpeed;
-                        else if (ks.IsKeyDown(Keys.Left))
+                        else if (ks.IsKeyDown(Keys.Left) && rightPaddle.X >= window.X / 2 + 20)
                             rightPaddle.X -= initialPaddleSpeed;
                     }
                 }
                 else if (slimy && lastPaddle == 1)
                 {
                     KeyboardState ks = Keyboard.GetState();
-                    if (ks.IsKeyDown(Keys.Down))
+                    if (ks.IsKeyDown(Keys.Down) && rightPaddle.Y + 64 <= window.Y)
                         rightPaddle.Y += slimedPaddleSpeed;
-                    else if (ks.IsKeyDown(Keys.Up))
+                    else if (ks.IsKeyDown(Keys.Up) && rightPaddle.Y >= 0)
                         rightPaddle.Y -= slimedPaddleSpeed;
 
                     if (flexibility)
                     {
-                        if (ks.IsKeyDown(Keys.Right))
+                        if (ks.IsKeyDown(Keys.Right) && rightPaddle.X <= window.X - 24 - (brickWidth + 10))
                             rightPaddle.X += slimedPaddleSpeed;
-                        else if (ks.IsKeyDown(Keys.Left))
+                        else if (ks.IsKeyDown(Keys.Left) && rightPaddle.X >= window.X / 2 + 20)
                             rightPaddle.X -= slimedPaddleSpeed;
                     }
                 }
                 else if (grease && lastPaddle == 1)
                 {
                     KeyboardState ks = Keyboard.GetState();
-                    if (ks.IsKeyDown(Keys.Down))
+                    if (ks.IsKeyDown(Keys.Down) && rightPaddle.Y + 64 <= window.Y)
                         rightPaddle.Y += greasedPaddleSpeed;
-                    else if (ks.IsKeyDown(Keys.Up))
+                    else if (ks.IsKeyDown(Keys.Up) && rightPaddle.Y >= 0)
                         rightPaddle.Y -= greasedPaddleSpeed;
 
                     if (flexibility)
                     {
-                        if (ks.IsKeyDown(Keys.Right))
+                        if (ks.IsKeyDown(Keys.Right) && rightPaddle.X <= window.X - 24 - (brickWidth + 10))
                             rightPaddle.X += greasedPaddleSpeed;
-                        else if (ks.IsKeyDown(Keys.Left))
+                        else if (ks.IsKeyDown(Keys.Left) && rightPaddle.X >= window.X / 2 + 20)
                             rightPaddle.X -= greasedPaddleSpeed;
                     }
                 }
                 #endregion
 
                 #region powerup stuff
-                if (timer % 300 == 0)
+                if (timer % 300 == 0 && !menuState && !difficultyState)
                 {
                     powerupType = new Random().Next(1, 7);
 
@@ -395,6 +395,7 @@ namespace Coding_Lab_4
                     grease = false;
                     slimy = false;
                     flexibility = false;
+                    rightPaddle.X = window.X - 24 - (brickWidth + 10);
 
                 }
                 #endregion
