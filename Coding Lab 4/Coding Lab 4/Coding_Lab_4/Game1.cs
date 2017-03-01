@@ -318,11 +318,56 @@ namespace Coding_Lab_4
                     }
                     else if (gamemode == 2)
                     {
-                        if (ball.X <= 100 && !(frozen && lastPaddle == 2))
+                        if (ball.X <= 300 && !(frozen && lastPaddle == 2))
                         {
                             if (ball.Y > leftPaddle.Y) leftPaddle.Y += aiPaddleSpeed;
                             else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= aiPaddleSpeed;
                         }
+                    }
+                }
+                else {
+
+                    initialBallSpeed = 8;
+                    ballSpeed = initialBallSpeed;
+                    aiPaddleSpeed = 15;
+                    initialPaddleSpeed = 8;
+                    slimedPaddleSpeed = 5;
+                    greasedPaddleSpeed = 10;
+                    #region initialize bricks
+                    numBricks = 5;
+                    brickHeight = (int)window.Y / numBricks;
+                    leftHealth = new int[numBricks];
+                    rightHealth = new int[numBricks];
+
+                    for (int i = 0; i < numBricks; i++)
+                    {
+                        leftHealth[i] = 2;
+                        rightHealth[i] = 2;
+                    }
+                    #endregion
+
+                    if (ball.X <= 300 && !(frozen && lastPaddle == 2))
+                    {
+                        if (ball.Y > leftPaddle.Y) leftPaddle.Y += aiPaddleSpeed;
+                        else if (ball.Y < leftPaddle.Y) leftPaddle.Y -= aiPaddleSpeed;
+                    }
+                    if (ball.X >= 300 && !(frozen && lastPaddle == 2))
+                    {
+                        if (ball.Y > rightPaddle.Y) rightPaddle.Y += aiPaddleSpeed;
+                        else if (ball.Y < rightPaddle.Y) rightPaddle.Y -= aiPaddleSpeed;
+                    }
+
+                    if (ball.X <= leftPaddle.X + 24 && ball.Y + 32 >= leftPaddle.Y && ball.Y <= leftPaddle.Y + 64)
+                    {
+                        ballVelocity = new Vector2(ballSpeed, (ball.Y - (leftPaddle.Y - 32) - 48) / 48 * ballSpeed);
+                        if (!menuState && !difficultyState) Content.Load<SoundEffect>("hit").Play();
+                        lastPaddle = 1;
+                    }
+                    else if (ball.X + 32 >= rightPaddle.X && ball.Y + 32 >= rightPaddle.Y && ball.Y <= rightPaddle.Y + 64)
+                    {
+                        ballVelocity = new Vector2(-ballSpeed, (ball.Y - (rightPaddle.Y - 32) - 48) / 48 * ballSpeed);
+                        if (!menuState && !difficultyState) Content.Load<SoundEffect>("hit").Play();
+                        lastPaddle = 2;
                     }
                 }
                 #endregion
@@ -407,11 +452,11 @@ namespace Coding_Lab_4
             // TODO: Add your update logic here
             if (menuState || difficultyState)
             {
-                if (leftPaddle.Y + 64 < ball.Y) leftPaddle.Y = ball.Y - 64;
-                else if (leftPaddle.Y > ball.Y + 32) leftPaddle.Y = ball.Y + 32;
+                //if (leftPaddle.Y + 64 < ball.Y) leftPaddle.Y = ball.Y - 64;
+                //else if (leftPaddle.Y > ball.Y + 32) leftPaddle.Y = ball.Y + 32;
 
-                if (rightPaddle.Y + 64 < ball.Y) rightPaddle.Y = ball.Y - 64;
-                else if (rightPaddle.Y > ball.Y + 32) rightPaddle.Y = ball.Y + 32;
+                //if (rightPaddle.Y + 64 < ball.Y) rightPaddle.Y = ball.Y - 64;
+                //else if (rightPaddle.Y > ball.Y + 32) rightPaddle.Y = ball.Y + 32;
             }
             else if (goalState)
             {
@@ -610,7 +655,7 @@ namespace Coding_Lab_4
                         {
                             initialBallSpeed = 8;
                             ballSpeed = initialBallSpeed;
-                            aiPaddleSpeed = 15;
+                            aiPaddleSpeed = 10;
                             initialPaddleSpeed = 8;
                             slimedPaddleSpeed = 5;
                             greasedPaddleSpeed = 10;
